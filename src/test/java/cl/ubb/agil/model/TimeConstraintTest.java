@@ -13,9 +13,21 @@ public class TimeConstraintTest {
 	public void setup(){
 		sut = new TimeConstraint();
 	}
+	
+	@Test
+	public void constructorTimeConstraintSetMinAndMaxNumbersOfDays(){
+		
+		TimeConstraint sut2 = new TimeConstraint(4, 7);
+		
+		int result = sut2.getMinNumberOfDays();
+		int result2 = sut2.getMaxNumberOfDays();
+		
+		assertEquals(4, result);
+		assertEquals(7, result2);
+	}
 
 	@Test
-	public void minNumberOfDaysIsFour(){
+	public void minNumberOfDaysIsFour() throws NumberOfDaysException{
 		
 
 		sut.setMinNumberOfDays(4);
@@ -27,7 +39,7 @@ public class TimeConstraintTest {
 	}
 	
 	@Test
-	public void minNumberOfDaysIsSix(){
+	public void minNumberOfDaysIsSix() throws NumberOfDaysException{
 
 		sut.setMinNumberOfDays(6);
 		
@@ -37,7 +49,7 @@ public class TimeConstraintTest {
 	}
 	
 	@Test
-	public void minNumberOfDaysIsTen(){
+	public void minNumberOfDaysIsTen() throws NumberOfDaysException{
 
 		sut.setMinNumberOfDays(10);
 		
@@ -48,7 +60,7 @@ public class TimeConstraintTest {
 	}
 	
 	@Test
-	public void maxNumberOfDaysIsSix(){
+	public void maxNumberOfDaysIsSix() throws NumberOfDaysException{
 		
 		sut.setMaxNumberOfDays(6);
 		
@@ -58,7 +70,7 @@ public class TimeConstraintTest {
 	}
 	
 	@Test
-	public void maxNumberOfDaysIsEight(){
+	public void maxNumberOfDaysIsEight() throws NumberOfDaysException{
 		
 		sut.setMaxNumberOfDays(8);
 		
@@ -68,7 +80,7 @@ public class TimeConstraintTest {
 	}
 	
 	@Test
-	public void maxNumberOfDaysIsTwelve(){
+	public void maxNumberOfDaysIsTwelve() throws NumberOfDaysException{
 		
 		sut.setMaxNumberOfDays(12);
 		
@@ -77,23 +89,33 @@ public class TimeConstraintTest {
 		assertEquals(12, result);
 	}
 	
-	@Test
-	public void minNumberOfDaysLessThanZeroThrowException(){
+	@Test(expected = NumberOfDaysException.class)
+	public void minNumberOfDaysLessThanZeroThrowException() throws NumberOfDaysException{
 		
+		sut.setMinNumberOfDays(-5);
+		
+		int result = sut.getMinNumberOfDays();
 	}
 	
-	@Test
-	public void maxNumberOfDaysLessThanZeroThrowException(){
+	@Test(expected = NumberOfDaysException.class)
+	public void maxNumberOfDaysLessThanZeroThrowException() throws NumberOfDaysException{
 		
+		sut.setMaxNumberOfDays(-5);
+		
+		int result = sut.getMaxNumberOfDays();
 	}
 	
-	@Test
-	public void minNumberOfDaysGreaterThanMaxNumberOfDaysThrowException(){
+	@Test(expected = NumberOfDaysException.class)
+	public void minNumberOfDaysGreaterThanMaxNumberOfDaysThrowException() throws NumberOfDaysException{
 		
+		sut.setMinNumberOfDays(4);
+		sut.setMaxNumberOfDays(3);
 	}
 	
-	@Test
-	public void maxNumberOfDaysLessThanMinNumberOfDaysThrowException(){
+	@Test(expected = NumberOfDaysException.class)
+	public void maxNumberOfDaysLessThanMinNumberOfDaysThrowException() throws NumberOfDaysException{
 		
+		sut.setMaxNumberOfDays(4);
+		sut.setMinNumberOfDays(5);
 	}
 }
