@@ -5,11 +5,13 @@ public class Customer {
 	private String rut; 
 	private String name;
 	private String cellPhone;
+	private String email;
 	
-	public Customer(String rut, String name, String cellPhone) {
+	public Customer(String rut, String name, String cellPhone, String email) {
 		this.rut = rut;
 		this.name = name;
 		this.cellPhone = cellPhone;
+		this.email = email;
 	}
 
 	public String getRut() {
@@ -34,6 +36,14 @@ public class Customer {
 	
 	public void setCellPhone(String cellPhone){
 		this.cellPhone = cellPhone;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public void setEmail(String email){
+		this.email = email;
 	}
 	
 }

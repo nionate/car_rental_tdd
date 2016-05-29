@@ -22,39 +22,60 @@ public class CustomerServiceTest {
 	@InjectMocks
 	private CustomerService cService;
 	
+	private static final String C_RUT = "184312107";
+	private static final String C_NAME = "Nicolas Oñate";
+	private static final String C_PHONE = "78343505";
+	private static final String C_EMAIL = "nionate@alumnos.ubiobio.cl";
+	
 	@Test
 	public void registerCustomerWithRut184312107(){
 		
-		when(cMock.getRut()).thenReturn("184312107");
+		when(cMock.getRut()).thenReturn(C_RUT);
 		when(cMock.getName()).thenReturn("");
 		when(cMock.getCellPhone()).thenReturn("");
+		when(cMock.getEmail()).thenReturn("");
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107", "", "");
+		verify(cDao).registerCustomer(C_RUT, "", "", "");
 	}
 	
 	@Test
 	public void registerCustomerWithRutAndName(){
 		
-		when(cMock.getRut()).thenReturn("184312107");
-		when(cMock.getName()).thenReturn("Nicolas Oñate");
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn("");
+		when(cMock.getEmail()).thenReturn("");
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107", "Nicolas Oñate", "");
+		verify(cDao).registerCustomer(C_RUT, C_NAME, "", "");
 	}
 	
 	@Test
 	public void registerCustomerWithRutNameAndCellPhone(){
 		
-		when(cMock.getRut()).thenReturn("184312107");
-		when(cMock.getName()).thenReturn("Nicolas Oñate");
-		when(cMock.getCellPhone()).thenReturn("78343505");
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cMock.getName()).thenReturn(C_NAME);
+		when(cMock.getCellPhone()).thenReturn(C_PHONE);
+		when(cMock.getEmail()).thenReturn("");
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107", "Nicolas Oñate", "78343505");
+		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, "");
+	}
+	
+	@Test
+	public void registerCustomerWithRutNameCellPhoneAndEmail(){
+		
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cMock.getName()).thenReturn(C_NAME);
+		when(cMock.getCellPhone()).thenReturn(C_PHONE);
+		when(cMock.getEmail()).thenReturn(C_EMAIL);
+		
+		cService.registerCustomer(cMock);
+		
+		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL);
 	}
 }
