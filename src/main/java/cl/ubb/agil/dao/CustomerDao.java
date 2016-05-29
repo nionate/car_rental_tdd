@@ -2,6 +2,6 @@ package cl.ubb.agil.dao;
 
 public interface CustomerDao {
 
-	public void registerCustomer(String rut);
+	public void registerCustomer(String rut, String name);
 
 }

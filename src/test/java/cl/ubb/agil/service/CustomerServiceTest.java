@@ -26,9 +26,21 @@ public class CustomerServiceTest {
 	public void registerCustomerWithRut184312107(){
 		
 		when(cMock.getRut()).thenReturn("184312107");
+		when(cMock.getName()).thenReturn("");
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107");
+		verify(cDao).registerCustomer("184312107", "");
+	}
+	
+	@Test
+	public void registerCustomerWithRutAndName(){
+		
+		when(cMock.getRut()).thenReturn("184312107");
+		when(cMock.getName()).thenReturn("Nicolas Oñate");
+		
+		cService.registerCustomer(cMock);
+		
+		verify(cDao).registerCustomer("184312107", "Nicolas Oñate");
 	}
 }
