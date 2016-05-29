@@ -27,10 +27,11 @@ public class CustomerServiceTest {
 		
 		when(cMock.getRut()).thenReturn("184312107");
 		when(cMock.getName()).thenReturn("");
+		when(cMock.getCellPhone()).thenReturn("");
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107", "");
+		verify(cDao).registerCustomer("184312107", "", "");
 	}
 	
 	@Test
@@ -38,9 +39,22 @@ public class CustomerServiceTest {
 		
 		when(cMock.getRut()).thenReturn("184312107");
 		when(cMock.getName()).thenReturn("Nicolas Oñate");
+		when(cMock.getCellPhone()).thenReturn("");
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer("184312107", "Nicolas Oñate");
+		verify(cDao).registerCustomer("184312107", "Nicolas Oñate", "");
+	}
+	
+	@Test
+	public void registerCustomerWithRutNameAndCellPhone(){
+		
+		when(cMock.getRut()).thenReturn("184312107");
+		when(cMock.getName()).thenReturn("Nicolas Oñate");
+		when(cMock.getCellPhone()).thenReturn("78343505");
+		
+		cService.registerCustomer(cMock);
+		
+		verify(cDao).registerCustomer("184312107", "Nicolas Oñate", "78343505");
 	}
 }

@@ -9,7 +9,7 @@ public class CustomerService {
 
 	public void registerCustomer(Customer customer) {
 		
-		cDao.registerCustomer(customer.getRut(), customer.getName());
+		cDao.registerCustomer(customer.getRut(), customer.getName(), customer.getCellPhone());
 	}
 
 }

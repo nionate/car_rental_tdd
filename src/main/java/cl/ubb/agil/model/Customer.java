@@ -4,10 +4,12 @@ public class Customer {
 
 	private String rut; 
 	private String name;
+	private String cellPhone;
 	
-	public Customer(String rut, String name) {
+	public Customer(String rut, String name, String cellPhone) {
 		this.rut = rut;
 		this.name = name;
+		this.cellPhone = cellPhone;
 	}
 
 	public String getRut() {
@@ -24,6 +26,14 @@ public class Customer {
 	
 	public void setName(String name){
 		this.name = name;
+	}
+
+	public String getCellPhone() {
+		return this.cellPhone;
+	}
+	
+	public void setCellPhone(String cellPhone){
+		this.cellPhone = cellPhone;
 	}
 	
 }
