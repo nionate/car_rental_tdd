@@ -34,10 +34,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn("");
 		when(cMock.getCellPhone()).thenReturn("");
 		when(cMock.getEmail()).thenReturn("");
+		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, "", "", "");
+		verify(cDao).registerCustomer(C_RUT, "", "", "", -1);
 	}
 	
 	@Test
@@ -47,10 +48,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn("");
 		when(cMock.getEmail()).thenReturn("");
+		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, "", "");
+		verify(cDao).registerCustomer(C_RUT, C_NAME, "", "", -1);
 	}
 	
 	@Test
@@ -60,10 +62,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn(C_PHONE);
 		when(cMock.getEmail()).thenReturn("");
+		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, "");
+		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, "", -1);
 	}
 	
 	@Test
@@ -73,9 +76,24 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn(C_PHONE);
 		when(cMock.getEmail()).thenReturn(C_EMAIL);
+		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL);
+		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
+	}
+	
+	@Test
+	public void registerCustomerWithCustomerCategory(){
+		
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cMock.getName()).thenReturn(C_NAME);
+		when(cMock.getCellPhone()).thenReturn(C_PHONE);
+		when(cMock.getEmail()).thenReturn(C_EMAIL);
+		when(cMock.getCustomerCategoryIdentifier()).thenReturn(1);
+		
+		cService.registerCustomer(cMock);
+		
+		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
 	}
 }
