@@ -96,4 +96,25 @@ public class CustomerServiceTest {
 		
 		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
 	}
+
+	@Test
+	public void customerIsRegistered(){
+		
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cDao.getCustomer(C_RUT)).thenReturn(cMock);
+		
+		cService.registerCustomer(cMock);
+		
+		boolean result = cService.isRegistered(C_RUT);
+		
+		assertEquals(true, result);
+	}
+	
+	@Test
+	public void customerIsNotRegistered(){
+		
+		boolean result = cService.isRegistered(C_RUT);
+		
+		assertEquals(false, result);
+	}
 }

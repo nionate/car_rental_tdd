@@ -12,4 +12,14 @@ public class CustomerService {
 		cDao.registerCustomer(customer.getRut(), customer.getName(), customer.getCellPhone(), customer.getEmail(), customer.getCustomerCategoryIdentifier());
 	}
 
+	public boolean isRegistered(String cRut) {
+		
+		Customer customer = cDao.getCustomer(cRut);
+		
+		
+		if(customer != null)
+			return true;
+		return false;
+	}
+
 }
