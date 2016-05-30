@@ -70,6 +70,7 @@ public class CarTypeServiceTest {
 		carTypeService.getAllCarTypes();
 	}
 
+	
 
 
 }

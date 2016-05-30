@@ -38,7 +38,7 @@ public class CustomerServiceTest {
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, "", "", "", -1);
+		verify(cDao).create(C_RUT, "", "", "", -1);
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, "", "", -1);
+		verify(cDao).create(C_RUT, C_NAME, "", "", -1);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, "", -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, "", -1);
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
 	}
 	
 	@Test
@@ -94,6 +94,27 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
+	}
+
+	@Test
+	public void customerIsRegistered(){
+		
+		when(cMock.getRut()).thenReturn(C_RUT);
+		when(cDao.getCustomer(C_RUT)).thenReturn(cMock);
+		
+		cService.registerCustomer(cMock);
+		
+		boolean result = cService.isRegistered(C_RUT);
+		
+		assertEquals(true, result);
+	}
+	
+	@Test
+	public void customerIsNotRegistered(){
+		
+		boolean result = cService.isRegistered(C_RUT);
+		
+		assertEquals(false, result);
 	}
 }

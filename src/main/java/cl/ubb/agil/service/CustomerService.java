@@ -9,7 +9,17 @@ public class CustomerService {
 
 	public void registerCustomer(Customer customer) {
 		
-		cDao.registerCustomer(customer.getRut(), customer.getName(), customer.getCellPhone(), customer.getEmail(), customer.getCustomerCategoryIdentifier());
+		cDao.create(customer.getRut(), customer.getName(), customer.getCellPhone(), customer.getEmail(), customer.getCustomerCategoryIdentifier());
+	}
+
+	public boolean isRegistered(String cRut) {
+		
+		Customer customer = cDao.getCustomer(cRut);
+		
+		
+		if(customer != null)
+			return true;
+		return false;
 	}
 
 }
