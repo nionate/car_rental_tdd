@@ -38,7 +38,7 @@ public class CustomerServiceTest {
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, "", "", "", -1);
+		verify(cDao).create(C_RUT, "", "", "", -1);
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, "", "", -1);
+		verify(cDao).create(C_RUT, C_NAME, "", "", -1);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, "", -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, "", -1);
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class CustomerServiceTest {
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).registerCustomer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
 	}
 
 	@Test
