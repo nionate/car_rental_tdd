@@ -6,14 +6,14 @@ public class Customer {
 	private String name;
 	private String cellPhone;
 	private String email;
-	private int customerCategoryIdentifier;
+	private CustomerCategory customerCategory;
 	
-	public Customer(String rut, String name, String cellPhone, String email, int customerCategoryIdentifier) {
+	public Customer(String rut, String name, String cellPhone, String email, CustomerCategory customerCategory) {
 		this.rut = rut;
 		this.name = name;
 		this.cellPhone = cellPhone;
 		this.email = email;
-		this.customerCategoryIdentifier = customerCategoryIdentifier;
+		this.customerCategory = customerCategory;
 	}
 
 	public String getRut() {
@@ -48,12 +48,12 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getCustomerCategoryIdentifier() {
-		return this.customerCategoryIdentifier;
+	public CustomerCategory getCustomerCategory() {
+		return this.customerCategory;
 	}
 	
-	public void setCustomerCategoryIdentifier(int customerCategoryIdentifier){
-		this.customerCategoryIdentifier = customerCategoryIdentifier;
+	public void setCustomerCategory(CustomerCategory customerCategory){
+		this.customerCategory = customerCategory;
 	}
 	
 }

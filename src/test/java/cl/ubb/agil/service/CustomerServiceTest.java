@@ -10,6 +10,8 @@ import static org.mockito.Mockito.*;
 
 import cl.ubb.agil.dao.CustomerDao;
 import cl.ubb.agil.model.Customer;
+import cl.ubb.agil.model.CustomerCategory;
+import cl.ubb.agil.service.exception.ReadErrorException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
@@ -23,7 +25,7 @@ public class CustomerServiceTest {
 	private CustomerService cService;
 	
 	private static final String C_RUT = "184312107";
-	private static final String C_NAME = "Nicolas Oñate";
+	private static final String C_NAME = "Nicolas Oï¿½ate";
 	private static final String C_PHONE = "78343505";
 	private static final String C_EMAIL = "nionate@alumnos.ubiobio.cl";
 	
@@ -34,11 +36,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn("");
 		when(cMock.getCellPhone()).thenReturn("");
 		when(cMock.getEmail()).thenReturn("");
-		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
+		when(cMock.getCustomerCategory()).thenReturn(null);
 
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).create(C_RUT, "", "", "", -1);
+		verify(cDao).create(C_RUT, "", "", "", null);
 	}
 	
 	@Test
@@ -48,11 +50,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn("");
 		when(cMock.getEmail()).thenReturn("");
-		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
+		when(cMock.getCustomerCategory()).thenReturn(null);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).create(C_RUT, C_NAME, "", "", -1);
+		verify(cDao).create(C_RUT, C_NAME, "", "", null);
 	}
 	
 	@Test
@@ -62,11 +64,11 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn(C_PHONE);
 		when(cMock.getEmail()).thenReturn("");
-		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
+		when(cMock.getCustomerCategory()).thenReturn(null);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).create(C_RUT, C_NAME, C_PHONE, "", -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, "", null);
 	}
 	
 	@Test
@@ -76,25 +78,27 @@ public class CustomerServiceTest {
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn(C_PHONE);
 		when(cMock.getEmail()).thenReturn(C_EMAIL);
-		when(cMock.getCustomerCategoryIdentifier()).thenReturn(-1);
+		when(cMock.getCustomerCategory()).thenReturn(null);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, null);
 	}
 	
 	@Test
 	public void registerCustomerWithCustomerCategory(){
 		
+		CustomerCategory cCategory = new CustomerCategory(1, "Person");
+		
 		when(cMock.getRut()).thenReturn(C_RUT);
 		when(cMock.getName()).thenReturn(C_NAME);
 		when(cMock.getCellPhone()).thenReturn(C_PHONE);
 		when(cMock.getEmail()).thenReturn(C_EMAIL);
-		when(cMock.getCustomerCategoryIdentifier()).thenReturn(1);
+		when(cMock.getCustomerCategory()).thenReturn(cCategory);
 		
 		cService.registerCustomer(cMock);
 		
-		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);
+		verify(cDao).create(C_RUT, C_NAME, C_PHONE, C_EMAIL, cCategory);
 	}
 
 	@Test
@@ -117,4 +121,39 @@ public class CustomerServiceTest {
 		
 		assertEquals(false, result);
 	}
+	
+	@Test
+	public void customerWithRut184312107IsAPerson() throws ReadErrorException{
+		
+		CustomerCategory cCategory = new CustomerCategory(1, "Person");
+		
+		when(cDao.getCustomer("184312107")).thenReturn(cMock);
+		when(cMock.getCustomerCategory()).thenReturn(cCategory);
+		
+		CustomerCategory result = cService.getCustomerCategory("184312107");
+		
+		assertEquals("Person", result.getName());
+	}
+	
+	@Test
+	public void customerWithRut184003008IsAnEnterprise() throws ReadErrorException{
+		
+		CustomerCategory cCategory = new CustomerCategory(2, "Enterprise");
+		
+		when(cDao.getCustomer("184003008")).thenReturn(cMock);
+		when(cMock.getCustomerCategory()).thenReturn(cCategory);
+		
+		CustomerCategory result = cService.getCustomerCategory("184003008");
+		
+		assertEquals("Enterprise", result.getName());
+		
+	}
+	
+	@Test(expected = ReadErrorException.class)
+	public void customerWithRut184312107IsNotRegisteredAndNotHaveACategory() throws ReadErrorException{
+			
+		CustomerCategory result = cService.getCustomerCategory("184312107");
+		
+	}
+	
 }
