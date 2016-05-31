@@ -1,26 +1,21 @@
 package cl.ubb.agil.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import cl.ubb.agil.dao.BranchDao;
 import cl.ubb.agil.model.Branch;
-import cl.ubb.agil.service.exception.ReadErrorException;
-
+import cl.ubb.agil.service.exception.EmptyListException;
 public class BranchService {
 	
 	private BranchDao bdao;
 
-	public List<Branch> getAllBranches() throws ReadErrorException{
-		List<Branch> branches = bdao.getAllBranches();
+	public ArrayList<Branch> getAll() throws EmptyListException{
+		ArrayList<Branch> branches = bdao.getAll();
 		
 		if(branches.isEmpty())
-			throw new ReadErrorException();
+			throw new EmptyListException();
 		
-		return bdao.getAllBranches();
-	}
-
-	public Branch searchBranch(int i) {
-		return bdao.searchBranch(i);
+		return bdao.getAll();
 	}
 
 }

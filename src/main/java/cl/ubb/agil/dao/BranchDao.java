@@ -1,13 +1,11 @@
 package cl.ubb.agil.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import cl.ubb.agil.model.Branch;
 
 public interface BranchDao {
 
-	public List<Branch> getAllBranches();
-
-	public Branch searchBranch(int i);
+	public ArrayList<Branch> getAll();
 
 }

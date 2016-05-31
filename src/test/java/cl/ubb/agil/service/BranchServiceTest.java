@@ -6,77 +6,69 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cl.ubb.agil.dao.BranchDao;
 import cl.ubb.agil.model.Branch;
-import cl.ubb.agil.service.exception.ReadErrorException;
+import cl.ubb.agil.service.exception.EmptyListException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BranchServiceTest {
 
 	@Mock
-	private BranchDao bdao;
+	private BranchDao branchDao;
+	private Branch branch;
 	
 	@InjectMocks
-	private BranchService bservice;
+	private BranchService branchService;
+	
 	
 	@Test
-	public void getAllBranchesReturnListWithOneObjectTest() throws Exception{
+	public void sizeOfGetAllBranchesIsOneTest() throws EmptyListException{
+		/*Arrange*/
+		Branch branch = new Branch (1111, "Santiago", "Terminal TurBus");
+		ArrayList<Branch> branches = new ArrayList<Branch>();
+		branches.add(branch);
+		when(branchDao.getAll()).thenReturn(branches);
 		
-		List<Branch> branchs = new ArrayList<Branch>();
-		branchs.add(new Branch());
-			
-		when(bdao.getAllBranches()).thenReturn(branchs);
+		/*Act*/
+		ArrayList<Branch> listBranches = branchService.getAll();
 		
-		List<Branch> result = bservice.getAllBranches();
-		
-		assertEquals(1, result.size());
-		
+		/*Assert*/
+		assertThat(listBranches, is(equalTo(branches)));
 	}
 	
 	@Test
-	public void getAllBranchesReturnListWithMoreThanOneObjectTest() throws Exception{
+	public void sizeOfGetAllBranchesIsTwoTest() throws EmptyListException{
+		/*Arrange*/
+		Branch branch = new Branch (1111, "Santiago", "Terminal TurBus");
+		Branch branch1 = new Branch (1112, "Santiago", "Aeropuerto Comodoro");
+		ArrayList<Branch> branches = new ArrayList<Branch>();
+		branches.add(branch);
+		branches.add(branch1);
+		when(branchDao.getAll()).thenReturn(branches);
 		
-		List<Branch> branchs = new ArrayList<Branch>();
-		branchs.add(new Branch());
-		branchs.add(new Branch());
-			
-		when(bdao.getAllBranches()).thenReturn(branchs);
+		/*Act*/
+		ArrayList<Branch> listBranches = branchService.getAll();
 		
-		List<Branch> result = bservice.getAllBranches();
-		
-		assertEquals(2, result.size());
-		
+		/*Assert*/
+		assertThat(listBranches, is(equalTo(branches)));;
 	}
 	
-	@Test(expected = ReadErrorException.class)
-	public void getAllBranchesReturnAnEmptyListThrowExceptionTest() throws Exception{
+	@Test (expected=EmptyListException.class)
+	public void GetAllBranchesReturnEmptyTest()throws EmptyListException{
+		/*Arrange*/
+		ArrayList<Branch> branches = new ArrayList<Branch>();
+		when(branchDao.getAll()).thenReturn(branches);
 		
-		List<Branch> branchs = new ArrayList<Branch>();
-		
-		when(bdao.getAllBranches()).thenReturn(branchs);
-		
-		List<Branch> result = bservice.getAllBranches();
-		
-		assertEquals(true, result.isEmpty());
-		
-	}
-	
-	@Test
-	public void searchBranchTest(){
-		
-		Branch br = new Branch();
-		
-		when(bdao.searchBranch(1)).thenReturn(br);
-		
-		Branch result = bservice.searchBranch(1);
-		
-		assertEquals(1, result.getIdentifier());
+		/*Act*/
+		branchService.getAll();
 	}
 	
 	
