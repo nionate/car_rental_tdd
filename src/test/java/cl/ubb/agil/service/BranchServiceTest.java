@@ -23,7 +23,6 @@ public class BranchServiceTest {
 
 	@Mock
 	private BranchDao branchDao;
-	private Branch branch;
 	
 	@InjectMocks
 	private BranchService branchService;
@@ -48,7 +47,7 @@ public class BranchServiceTest {
 	public void sizeOfGetAllBranchesIsTwoTest() throws EmptyListException{
 		/*Arrange*/
 		Branch branch = new Branch (1111, "Santiago", "Terminal TurBus");
-		Branch branch1 = new Branch (1112, "Santiago", "Aeropuerto Comodoro");
+		Branch branch1 = new Branch (1112, "Santiago", "Airport Comodoro");
 		ArrayList<Branch> branches = new ArrayList<Branch>();
 		branches.add(branch);
 		branches.add(branch1);
