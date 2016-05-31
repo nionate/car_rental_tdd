@@ -6,15 +6,17 @@ public class CarType {
 	private String name;
 	private String transmisionType;
 	private String fuelType;
+	private String airConditioning;
 	private int bags;
 	private int passengers;
 	private int dailyPrice;
 	
-	public CarType(int identifier, String name, String transmisionType, String fuelType, int bags, int passengers, int dailyPrice) {
+	public CarType(int identifier, String name, String transmisionType, String fuelType, String airConditiong, int bags, int passengers, int dailyPrice) {
 		this.identifier = identifier;
 		this.name = name;
 		this.transmisionType = transmisionType;
 		this.fuelType = fuelType;
+		this.airConditioning = airConditiong;
 		this.bags = bags;
 		this.passengers = passengers;
 		this.dailyPrice = dailyPrice;
@@ -40,7 +42,7 @@ public class CarType {
 		return transmisionType;
 	}
 
-	public void setTransmision(String transmisionType) {
+	public void setTransmisionType(String transmisionType) {
 		this.transmisionType = transmisionType;
 	}
 
@@ -50,6 +52,15 @@ public class CarType {
 
 	public void setFuelType(String fuelType) {
 		this.fuelType = fuelType;
+	}
+	
+
+	public String getAirConditioning() {
+		return airConditioning;
+	}
+
+	public void setAirConditioning(String airConditioning) {
+		this.airConditioning = airConditioning;
 	}
 
 	public int getBags() {

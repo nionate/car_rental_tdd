@@ -14,63 +14,63 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import cl.ubb.agil.dao.CarTypeDao;
+import cl.ubb.agil.model.CarSpecification;
 import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.service.exception.EmptyListException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarTypeServiceTest {
-	
+
 	@Mock
-	private	CarTypeDao carTypeDao;
-	
-	@Mock
+	private CarTypeDao carTypeDao;
+
 	private CarType carType, carTypeAux;
-	
+
 	private List<CarType> listCarsTypes;
-	
+
 	@InjectMocks
 	private CarTypeService carTypeService;
-	
+
 	@Before
-	public void setup(){
+	public void setup() {
 		listCarsTypes = new ArrayList<CarType>();
-		
+		carType = new CarType(54321, "sports", "automatic", "diesel", "yes", 2, 2, 40000);
+
 	}
-	
+
 	@Test
-	public void getAllCarsTypesReturnListWithOneCarType() throws EmptyListException{
+	public void getAllCarsTypesReturnListWithOneCarType() throws EmptyListException {
 		listCarsTypes.add(carType);
-		when(carType.getIdentifier()).thenReturn(1234);
-		when(carType.getName()).thenReturn("sports");
-		when(carType.getTransmisionType()).thenReturn("automatic");
-		when(carType.getFuelType()).thenReturn("diesel");
-		when(carType.getBags()).thenReturn(2);
-		when(carType.getPassengers()).thenReturn(2);
-		when(carType.getDailyPrice()).thenReturn(40000);
 		when(carTypeDao.getAllCarTypes()).thenReturn(listCarsTypes);
-		
-		assertEquals(listCarsTypes,carTypeService.getAllCarTypes());
-		assertEquals(1,carTypeService.getAllCarTypes().size());
-		
+
+		assertEquals(listCarsTypes, carTypeService.getAllCarTypes());
+		assertEquals(1, carTypeService.getAllCarTypes().size());
+
 	}
-	
+
 	@Test
-	public void getAllCarsTypesReturnListWithTwoCarsTypes() throws EmptyListException{
+	public void getAllCarsTypesReturnListWithTwoCarsTypes() throws EmptyListException {
 		listCarsTypes.add(carType);
+		carTypeAux = new CarType(898989, "familiar", "manual", "gas",  "yes", 6, 5, 30000);
 		listCarsTypes.add(carTypeAux);
 		when(carTypeDao.getAllCarTypes()).thenReturn(listCarsTypes);
-		
-		assertEquals(2,carTypeService.getAllCarTypes().size());
+
+		assertEquals(2, carTypeService.getAllCarTypes().size());
 	}
-	
-	@Test(expected=EmptyListException.class)
-	public void getAllCarsTypesReturnEmptyList() throws EmptyListException{
+
+	@Test(expected = EmptyListException.class)
+	public void getAllCarsTypesReturnEmptyList() throws EmptyListException {
 		when(carTypeDao.getAllCarTypes()).thenReturn(listCarsTypes);
-		
+
 		carTypeService.getAllCarTypes();
 	}
-
 	
+	/*
+	@Test
+	public void getAllCarsByTipeReturnTheSpecificationsWithTheSameId(){
+		List<CarSpecification> listSpecifications = new ArrayList<CarSpecification>();
+		when(carTypeDao.getAllCarsByTipe(1234)).thenReturn(listSpecifications);
+	}
 
-
+	*/
 }

@@ -1,25 +1,27 @@
 package cl.ubb.agil.model;
 
 public class CarSpecification {
-
-	private int identifier;
+	
+	private int id;
 	private String brand;
 	private String model;
 	private int year;
 	
-	public CarSpecification(int identifier, String brand, String model, int year) {
-		this.identifier = identifier;
+	
+	public CarSpecification(int id, String brand, String model, int year) {
+		this.id = id;
 		this.brand = brand;
 		this.model = model;
 		this.year = year;
+		
 	}
 
-	public int getIdentifier() {
-		return identifier;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdentifier(int identifier) {
-		this.identifier = identifier;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getBrand() {
@@ -45,7 +47,12 @@ public class CarSpecification {
 	public void setYear(int year) {
 		this.year = year;
 	}
+
 	
 	
 	
+	
+	
+	
+
 }
