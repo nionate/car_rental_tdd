@@ -5,7 +5,7 @@ import cl.ubb.agil.model.CustomerCategory;
 
 public interface CustomerDao {
 
-	public void create(String rut, String name, String cellPhone, String email, CustomerCategory customerCategory);
+	public void create(Customer customer);
 
 	public Customer getCustomer(String cRut);
 
