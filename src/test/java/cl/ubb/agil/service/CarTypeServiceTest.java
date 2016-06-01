@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import cl.ubb.agil.dao.CarTypeDao;
-import cl.ubb.agil.model.CarSpecification;
 import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.service.exception.EmptyListException;
 
@@ -64,13 +63,5 @@ public class CarTypeServiceTest {
 
 		carTypeService.getAllCarTypes();
 	}
-	
-	/*
-	@Test
-	public void getAllCarsByTipeReturnTheSpecificationsWithTheSameId(){
-		List<CarSpecification> listSpecifications = new ArrayList<CarSpecification>();
-		when(carTypeDao.getAllCarsByTipe(1234)).thenReturn(listSpecifications);
-	}
 
-	*/
 }

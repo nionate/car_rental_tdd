@@ -20,21 +20,4 @@ import cl.ubb.agil.service.exception.EmptyListException;
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
 	
-	@Mock
-	private CarDao carDaoMk;
-	
-	private Car car;
-	
-	@InjectMocks
-	private CarService carServiceMk;
-	
-	/*
-	@Test
-	public void getAllCarsByTipeReturnsCarsWithTheSameId(){
-		CarType carType = new CarType(4321,"familiar","manual","gas", "no", 6, 5, 30000);
-		CarSpecification carSpecification = new CarSpecification(787878,"nissan","v16",1998,carType);
-		car = new Car("RNHD67","white",carSpecification);
-		when(carDaoMk.getAllCarsByTipes(1234)).thenReturn(carSpecification);
-	}
-	*/
 }

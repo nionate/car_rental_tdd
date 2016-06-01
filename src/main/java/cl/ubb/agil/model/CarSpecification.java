@@ -5,10 +5,10 @@ public class CarSpecification {
 	private int id;
 	private String brand;
 	private String model;
-	private int year;
+	private String year;
 	
 	
-	public CarSpecification(int id, String brand, String model, int year) {
+	public CarSpecification(int id, String brand, String model, String year) {
 		this.id = id;
 		this.brand = brand;
 		this.model = model;
@@ -40,11 +40,11 @@ public class CarSpecification {
 		this.model = model;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 
