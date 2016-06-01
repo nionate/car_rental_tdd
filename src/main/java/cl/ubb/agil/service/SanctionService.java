@@ -1,6 +1,5 @@
 package cl.ubb.agil.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cl.ubb.agil.dao.SanctionDao;
@@ -12,14 +11,13 @@ public class SanctionService {
 
 	public boolean searchUserWithSanction(String rut, String date) {
 		
-		List<Sanction> sanctions = sDao.getAll();		
-		List<Sanction> CustomerSanctions = getSanctionCustomer(rut, sanctions);
+		List<Sanction> sanctions = sDao.getAllByCostumer(rut);		
 		
-		if(CustomerSanctions.isEmpty()){
+		if(sanctions.isEmpty()){
 			return false;
 		}else{
 			
-			for(Sanction sanction : CustomerSanctions){
+			for(Sanction sanction : sanctions){
 				String cRut = sanction.getCustomer().getRut();
 				
 				if(rut.equals(cRut) && verifyDays(sanction.getStartDate(), sanction.getDays(), date)){
@@ -28,18 +26,6 @@ public class SanctionService {
 			}
 		}	
 		return false;
-	}
-
-	
-	// private methods
-	private List<Sanction> getSanctionCustomer(String rutCustomer, List<Sanction> sanctions){
-		List<Sanction> aux = new ArrayList<Sanction>();
-		for(Sanction sanction : sanctions){
-			if(rutCustomer.equals(sanction.getCustomer().getRut())){
-				aux.add(sanction);
-			}
-		}
-		return aux;
 	}
 	
 	private boolean verifyDays(String startDate, int days, String date){

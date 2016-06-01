@@ -10,5 +10,7 @@ public interface SanctionDao {
 
 	public List<Sanction> getAll();
 
+	public List<Sanction> getAllByCostumer(String rut);
+
 
 }
