@@ -4,6 +4,7 @@ import java.util.List;
 
 //import cl.ubb.agil.model.CarSpecification;
 import cl.ubb.agil.model.CarType;
+import cl.ubb.agil.model.TimeConstraint;
 
 public interface CarTypeDao {
 	

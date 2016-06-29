@@ -36,8 +36,7 @@ public class CarTypeServiceTest {
 	@Before
 	public void setup() {
 		listCarsTypes = new ArrayList<CarType>();
-		carType = new CarType(54321, "sports", "automatic", "diesel", "yes", 2, 2, 40000,"1234");
-
+		carType = new CarType(54321, "sports", "automatic", "diesel", "yes", 2, 2, 40000);
 	}
 
 	@Test
@@ -53,7 +52,7 @@ public class CarTypeServiceTest {
 	@Test
 	public void getAllCarsTypesReturnListWithTwoCarsTypes() throws EmptyListException {
 		listCarsTypes.add(carType);
-		carTypeAux = new CarType(898989, "familiar", "manual", "gas",  "yes", 6, 5, 30000, "1234");
+		carTypeAux = new CarType(898989, "familiar", "manual", "gas",  "yes", 6, 5, 30000);
 		listCarsTypes.add(carTypeAux);
 		when(carTypeDao.getAllCarTypes()).thenReturn(listCarsTypes);
 
@@ -66,7 +65,7 @@ public class CarTypeServiceTest {
 
 		carTypeService.getAllCarTypes();
 	}
-	
+		
 	
 
 }
