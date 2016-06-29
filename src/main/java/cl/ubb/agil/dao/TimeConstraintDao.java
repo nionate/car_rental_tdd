@@ -8,7 +8,7 @@ public interface TimeConstraintDao {
 
 	public ArrayList <TimeConstraint> getAll();
 	
-	public TimeConstraint getAllByCostumerCategoryAndCarType(int idCostumerCategory,int idCarType);
+	public TimeConstraint getAllByCustomerCategoryAndCarType(int idCustomerCategory,int idCarType);
 	
 	
 }
