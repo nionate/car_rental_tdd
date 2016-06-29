@@ -26,10 +26,10 @@ public class CustomerServiceTest {
 	private CustomerService cService;
 	
 	private static final String C_RUT = "184312107";
-	private static final String C_NAME = "Nicolás";
+	private static final String C_NAME = "Nicolas";
 	private static final String C_PHONE = "78343505";
 	private static final String C_EMAIL = "nionate@gmail.com";
-	private CustomerCategory cc = new CustomerCategory(0, "");
+	private CustomerCategory cc = new CustomerCategory(0, "","");
 	
 	@Test
 	public void registerCustomerTest() throws CreateException{
@@ -99,7 +99,7 @@ public class CustomerServiceTest {
 	@Test
 	public void customerWithRut184312107IsAPerson() throws ReadErrorException{
 		
-		CustomerCategory cCategory = new CustomerCategory(1, "Person");
+		CustomerCategory cCategory = new CustomerCategory(1, "Person","1235");
 		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, cCategory);			
 		when(cDao.getCustomer(C_RUT)).thenReturn(customer);
 		
@@ -111,7 +111,7 @@ public class CustomerServiceTest {
 	@Test
 	public void customerWithRut184003008IsAnEnterprise() throws ReadErrorException{
 		
-		CustomerCategory cCategory = new CustomerCategory(2, "Enterprise");
+		CustomerCategory cCategory = new CustomerCategory(2, "Enterprise","1234");
 		customer = new Customer("184003008", C_NAME, C_PHONE, C_EMAIL, cCategory);	
 		when(cDao.getCustomer("184003008")).thenReturn(customer);
 		

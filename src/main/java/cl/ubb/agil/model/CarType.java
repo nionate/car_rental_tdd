@@ -10,8 +10,9 @@ public class CarType {
 	private int bags;
 	private int passengers;
 	private int dailyPrice;
+	private String idTimeConstraint;
 	
-	public CarType(int identifier, String name, String transmisionType, String fuelType, String airConditiong, int bags, int passengers, int dailyPrice) {
+	public CarType(int identifier, String name, String transmisionType, String fuelType, String airConditiong, int bags, int passengers, int dailyPrice, String idTimeConstraint) {
 		this.identifier = identifier;
 		this.name = name;
 		this.transmisionType = transmisionType;
@@ -20,6 +21,7 @@ public class CarType {
 		this.bags = bags;
 		this.passengers = passengers;
 		this.dailyPrice = dailyPrice;
+		this.idTimeConstraint = idTimeConstraint;
 	}
 
 	public int getIdentifier() {
@@ -86,6 +88,16 @@ public class CarType {
 	public void setDailyPrice(int dailyPrice) {
 		this.dailyPrice = dailyPrice;
 	}
+
+	public String getIdTimeConstraint() {
+		return idTimeConstraint;
+	}
+
+	public void setIdTimeConstraint(String idTimeConstraint) {
+		this.idTimeConstraint = idTimeConstraint;
+	}
+	
+	
 
 	
 }
