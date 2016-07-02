@@ -8,4 +8,6 @@ public interface CustomerCategoryDao {
 
 	public List<CustomerCategory> getAllCustomerCategories();
 
+	public CustomerCategory getCustomerCategoryById(int i);
+
 }

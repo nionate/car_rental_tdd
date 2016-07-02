@@ -60,13 +60,13 @@ public class CarServiceTest {
 		tcList.add(new TimeConstraint(2, 10, 2, 1));
 		//Car list by branch
 		List<Car> cListBranch = new ArrayList<>();
-		cListBranch.add(new Car("ADWS-12", "rojo"));
-		cListBranch.add(new Car("AAAA-12", "azul"));
+		cListBranch.add(new Car("ADWS-12", "rojo", 2));
+		cListBranch.add(new Car("AAAA-12", "azul", 1));
 		//Car list by specifications
 		List<Car> cListBySpecification = new ArrayList<>();
-		cListBySpecification.add(new Car("BBBB-12", "negro"));
-		cListBySpecification.add(new Car("ADWS-12", "rojo"));
-		cListBySpecification.add(new Car("AAAA-12", "azul"));
+		cListBySpecification.add(new Car("BBBB-12", "negro", 1));
+		cListBySpecification.add(new Car("ADWS-12", "rojo", 2));
+		cListBySpecification.add(new Car("AAAA-12", "azul", 1));
 		//Car Specification list
 		List<CarSpecification> csList = new ArrayList<>();
 		csList.add(new CarSpecification(1, "chevrolet", "corsa", "2012"));
@@ -101,10 +101,10 @@ public class CarServiceTest {
 		tcList.add(new TimeConstraint(2, 10, 2, 1));
 		//Car list by branch
 		List<Car> cListBranch = new ArrayList<>();
-		cListBranch.add(new Car("ADWS-12", "rojo"));
+		cListBranch.add(new Car("ADWS-12", "rojo", 2));
 		//Car list by specifications
 		List<Car> cListBySpecification = new ArrayList<>();
-		cListBySpecification.add(new Car("BBBB-12", "negro"));
+		cListBySpecification.add(new Car("BBBB-12", "negro", 1));
 
 		//Car Specification list
 		List<CarSpecification> csList = new ArrayList<>();

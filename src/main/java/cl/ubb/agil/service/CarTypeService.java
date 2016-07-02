@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import cl.ubb.agil.dao.CarTypeDao;
+import cl.ubb.agil.dao.ExtraDao;
+import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.model.Extra;
 import cl.ubb.agil.service.exception.EmptyListException;
@@ -14,6 +16,12 @@ import cl.ubb.agil.service.exception.EmptyListException;
 public class CarTypeService {
 	
 	private CarTypeDao carTypeDao;
+	private ExtraDao extraDao;
+	
+	public CarTypeService(CarTypeDao carTypeDao, ExtraDao extraDao){
+		this.carTypeDao = carTypeDao;
+		this.extraDao = extraDao;
+	}
 	
 	public List <CarType> getAllCarTypes() throws EmptyListException{
 		List <CarType> carsTypes = new ArrayList <CarType>();
@@ -24,13 +32,14 @@ public class CarTypeService {
 			return carsTypes;
 	}
 
-	public int getPrice(String startDate, String endDate, int identifier, List<Extra> extras) {
+	public int getPrice(String startDate, String endDate, int identifier, List<BookingExtra> extras) {
 		int total_price = 0;
 		int diff_days = diffDays(stringToDate(endDate), stringToDate(startDate));
 		CarType type = carTypeDao.getCarType(identifier);
 		
-		for(Extra extra : extras){
-			total_price += extra.getDailyPrice() * diff_days;
+		for(BookingExtra extra : extras){
+			Extra extra1 = extraDao.get(extra.getExtraId());
+			total_price += ((extra1.getDailyPrice() * extra.getNumber()) * diff_days);
 		}
 		
 		total_price += type.getDailyPrice() * diff_days;

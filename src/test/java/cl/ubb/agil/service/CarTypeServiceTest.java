@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 
 import cl.ubb.agil.dao.CarTypeDao;
 import cl.ubb.agil.dao.ExtraDao;
+import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.model.Extra;
 import cl.ubb.agil.model.TimeConstraint;
@@ -77,10 +78,12 @@ public class CarTypeServiceTest {
 		String endDate = "08/05/2016";
 		CarType carType = new CarType(1, "", "automatic", "diesel", "", 5, 5, 12000);
 		
-		List<Extra> extras = new ArrayList<>();
-		extras.add(new Extra(2, "", "", 1000));
+		Extra extra1 = new Extra(2, "", "", 1000);
+		List<BookingExtra> extras = new ArrayList<>();
+		extras.add(new BookingExtra(1, 2));
 		
 		when(carTypeDao.getCarType(carType.getIdentifier())).thenReturn(carType);
+		when(extraDao.get(2)).thenReturn(extra1);
 		
 		int price = carTypeService.getPrice(startDate, endDate, carType.getIdentifier(), extras);
 		

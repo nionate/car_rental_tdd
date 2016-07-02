@@ -6,6 +6,7 @@ import cl.ubb.agil.model.Branch;
 
 public interface BranchDao {
 
+	public Branch get(int id);
 	public ArrayList<Branch> getAll();
 
 }
