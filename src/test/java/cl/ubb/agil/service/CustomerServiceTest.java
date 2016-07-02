@@ -29,12 +29,11 @@ public class CustomerServiceTest {
 	private static final String C_NAME = "Nicolas";
 	private static final String C_PHONE = "78343505";
 	private static final String C_EMAIL = "nionate@gmail.com";
-	private CustomerCategory cc = new CustomerCategory(0, "");
 	
 	@Test
 	public void registerCustomerTest() throws CreateException{
 		
-		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, cc);
+		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 0);
 		
 		cService.registerCustomer(customer);
 		
@@ -45,7 +44,7 @@ public class CustomerServiceTest {
 	public void resgisterCustomerWithIncorrectRutShouldThrowCreateException() throws CreateException{
 		
 		String wrongRut = "184312106";
-		customer = new Customer(wrongRut, C_NAME, C_PHONE, C_EMAIL, cc);
+		customer = new Customer(wrongRut, C_NAME, C_PHONE, C_EMAIL, 0);
 		
 		cService.registerCustomer(customer);
 	}
@@ -54,7 +53,7 @@ public class CustomerServiceTest {
 	public void registerCustomerWithIncorrectEmailShouldThrowCreateException() throws CreateException{
 		
 		String wrongEmail = "wrongemail@com";
-		customer = new Customer(C_RUT, C_NAME, C_PHONE, wrongEmail, cc);
+		customer = new Customer(C_RUT, C_NAME, C_PHONE, wrongEmail, 0);
 			
 		cService.registerCustomer(customer);	
 	}
@@ -62,7 +61,7 @@ public class CustomerServiceTest {
 	@Test(expected = CreateException.class)
 	public void registerCustomerWithIncorrectCellPhoneShouldThrowCreateException() throws CreateException{
 		
-		customer = new Customer(C_RUT, C_NAME, "123", C_EMAIL, cc);
+		customer = new Customer(C_RUT, C_NAME, "123", C_EMAIL, 0);
 		
 		cService.registerCustomer(customer);
 	}
@@ -70,7 +69,7 @@ public class CustomerServiceTest {
 	@Test(expected = CreateException.class)
 	public void registerCustomerWithOutCustomerCategoryShouldThrowCreateException() throws CreateException{
 		
-		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, null);
+		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, -1);
 		
 		cService.registerCustomer(customer);
 	}
@@ -78,7 +77,7 @@ public class CustomerServiceTest {
 	@Test
 	public void customerIsRegistered() throws CreateException{
 		
-		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, cc);		
+		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 0);		
 		when(cDao.getCustomer(C_RUT)).thenReturn(customer);
 		
 		cService.registerCustomer(customer);
@@ -99,32 +98,31 @@ public class CustomerServiceTest {
 	@Test
 	public void customerWithRut184312107IsAPerson() throws ReadErrorException{
 		
-		CustomerCategory cCategory = new CustomerCategory(1, "Person");
-		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, cCategory);			
+		customer = new Customer(C_RUT, C_NAME, C_PHONE, C_EMAIL, 1);			
 		when(cDao.getCustomer(C_RUT)).thenReturn(customer);
 		
-		CustomerCategory result = cService.getCustomerCategory(customer.getRut());
+		int result = cService.getCustomerCategory(customer.getRut());
 		
-		assertEquals("Person", result.getName());
+		assertEquals(1, result);
 	}
 	
 	@Test
 	public void customerWithRut184003008IsAnEnterprise() throws ReadErrorException{
 		
 		CustomerCategory cCategory = new CustomerCategory(2, "Enterprise");
-		customer = new Customer("184003008", C_NAME, C_PHONE, C_EMAIL, cCategory);	
+		customer = new Customer("184003008", C_NAME, C_PHONE, C_EMAIL, 2);	
 		when(cDao.getCustomer("184003008")).thenReturn(customer);
 		
-		CustomerCategory result = cService.getCustomerCategory("184003008");
+		int result = cService.getCustomerCategory("184003008");
 		
-		assertEquals("Enterprise", result.getName());
+		assertEquals(2, result);
 		
 	}
 	
 	@Test(expected = ReadErrorException.class)
 	public void customerWithRut184312107IsNotRegisteredAndNotHaveACategory() throws ReadErrorException{
 			
-		CustomerCategory result = cService.getCustomerCategory(C_RUT);
+		int result = cService.getCustomerCategory(C_RUT);
 		
 	}
 	

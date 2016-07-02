@@ -18,7 +18,7 @@ public class CustomerService {
 			throw new CreateException();
 		if(!validateCellPhone(customer.getCellPhone()))
 			throw new CreateException();
-		if(customer.getCustomerCategory() == null)
+		if(customer.getIdCustomerCategory() < 0)
 			throw new CreateException();
 		
 		cDao.create(customer);
@@ -34,12 +34,12 @@ public class CustomerService {
 		return false;
 	}
 
-	public CustomerCategory getCustomerCategory(String customerRut) throws ReadErrorException {
+	public int getCustomerCategory(String customerRut) throws ReadErrorException {
 
 		Customer customer = cDao.getCustomer(customerRut);
-		CustomerCategory cCategory;
+		int cCategory;
 		if (customer != null) {
-			cCategory = customer.getCustomerCategory();
+			cCategory = customer.getIdCustomerCategory();
 		} else {
 			throw new ReadErrorException();
 		}

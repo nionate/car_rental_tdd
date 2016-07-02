@@ -5,16 +5,14 @@ public class TimeConstraint {
 	private int maxNumberOfDays;
 	private int identifierCarType;
 	private int identifierCustomerCategory;
-	private String idTimeConstraint;
 	
 	
 	public TimeConstraint(int minNumberOfDays, int maxNumberOfDays, int identifierCarType,
-			int identifierCustomerCategory, String idTimeConstraint) {
+			int identifierCustomerCategory) {
 		this.minNumberOfDays = minNumberOfDays;
 		this.maxNumberOfDays = maxNumberOfDays;
 		this.identifierCarType = identifierCarType;
 		this.identifierCustomerCategory = identifierCustomerCategory;
-		this.idTimeConstraint = idTimeConstraint;
 	}
 	
 	public int getMinNumberOfDays() {
@@ -40,12 +38,6 @@ public class TimeConstraint {
 	}
 	public void setIdentifierCustomerCategory(int identifierCustomerCategory) {
 		this.identifierCustomerCategory = identifierCustomerCategory;
-	}
-	public String getIdTimeConstraint() {
-		return idTimeConstraint;
-	}
-	public void setIdTimeConstraint(String idTimeConstraint) {
-		this.idTimeConstraint = idTimeConstraint;
 	}
 }	
 	
