@@ -14,7 +14,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import cl.ubb.agil.dao.CarTypeDao;
+import cl.ubb.agil.dao.ExtraDao;
 import cl.ubb.agil.model.CarType;
+import cl.ubb.agil.model.Extra;
 import cl.ubb.agil.model.TimeConstraint;
 import cl.ubb.agil.service.exception.EmptyListException;
 
@@ -23,6 +25,8 @@ public class CarTypeServiceTest {
 
 	@Mock
 	private CarTypeDao carTypeDao;
+	@Mock
+	private ExtraDao extraDao;
 
 	private CarType carType, carTypeAux;
 
@@ -66,6 +70,21 @@ public class CarTypeServiceTest {
 		carTypeService.getAllCarTypes();
 	}
 		
-	
+	@Test
+	public void shouldReturn39000WhenACarTypeWithId2IsConsulted(){
+		
+		String startDate = "05/05/2016";
+		String endDate = "08/05/2016";
+		CarType carType = new CarType(1, "", "automatic", "diesel", "", 5, 5, 12000);
+		
+		List<Extra> extras = new ArrayList<>();
+		extras.add(new Extra(2, "", "", 1000));
+		
+		when(carTypeDao.getCarType(carType.getIdentifier())).thenReturn(carType);
+		
+		int price = carTypeService.getPrice(startDate, endDate, carType.getIdentifier(), extras);
+		
+		assertEquals(39000, price);
+	}
 
 }

@@ -10,6 +10,7 @@ public interface CarTypeDao {
 	
 	
 	public List <CarType> getAllCarTypes();
-	//public List <CarSpecification> getAllCarsByTipe(int id);
+	public CarType getCarType(int id);
+	
 
 }

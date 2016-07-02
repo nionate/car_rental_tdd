@@ -86,7 +86,7 @@ public class CarService {
 	}
 	
 	public Date stringToDate(String dateString){
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = null;
 
 		try {
