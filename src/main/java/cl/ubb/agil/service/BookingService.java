@@ -10,6 +10,7 @@ import cl.ubb.agil.dao.CarSpecificationDao;
 import cl.ubb.agil.dao.CarTypeDao;
 import cl.ubb.agil.dao.CustomerCategoryDao;
 import cl.ubb.agil.dao.CustomerDao;
+import cl.ubb.agil.dao.ExtraDao;
 import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.Branch;
@@ -28,6 +29,7 @@ public class BookingService {
 	private CarDao carDao;
 	private CarSpecificationDao carSpecDao;
 	private BranchDao branchDao;
+	private ExtraDao extraDao;
 	
 	private CarTypeService carTypeService;
 	
@@ -38,7 +40,7 @@ public class BookingService {
 	public int booking(String customerRut, int origin, String startDay, String startHour, int destiny, String endDay,
 			String endHour, int carTypeId, List<BookingExtra> extras) {
 		
-		carTypeService = new CarTypeService(carTypeDao, null);
+		carTypeService = new CarTypeService(carTypeDao, extraDao);
 		
 		Customer customer = customerDao.getCustomer(customerRut);
 		CustomerCategory cCategory = cCategoryDao.getCustomerCategoryById(customer.getIdCustomerCategory());
