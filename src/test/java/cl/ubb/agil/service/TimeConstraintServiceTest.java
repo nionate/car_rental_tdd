@@ -50,6 +50,23 @@ public class TimeConstraintServiceTest {
 		assertEquals(true, timeCService.canBooking(minDays, maxDays, carType, CCCompany.getIdentifier()));
 	
 	}
+	@Test
+	public void canBookingCustomerCategoryPersonAndCarTypeTwoForOneDayRetornFalseTest(){
+		int carType = 2, minDays = 1, maxDays = 1; 
+		when(timeCDao.getAllByCustomerCategoryAndCarType(CCPerson.getIdentifier(),carType)).thenReturn(timeC1);
+	
+		assertEquals(false, timeCService.canBooking(minDays, maxDays, carType,CCPerson.getIdentifier()));
+	
+	}
+	@Test
+	public void canBookingCustomerCategoryCompanyAndCarTypeFourForFourDaysRetornFalseTest(){
+		int carType = 4, minDays = 4, maxDays = 4;
+		when(timeCDao.getAllByCustomerCategoryAndCarType(CCCompany.getIdentifier(),carType)).thenReturn(timeC2);
+			
+		assertEquals(false, timeCService.canBooking(minDays, maxDays, carType, CCCompany.getIdentifier()));
+	
+	}
+
 	
 	
 	
