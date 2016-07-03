@@ -1,5 +1,6 @@
 package cl.ubb.agil.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class BookingService {
 
 	}
 
-	public int booking(String customerRut, int origin, String startDay, String startHour, int destiny, String endDay,
-			String endHour, int carTypeId, List<BookingExtra> extras) {
+	public int booking(String customerRut, String origin, String startDay, String startHour, String destiny, String endDay,
+			String endHour, int carTypeId, List<BookingExtra> extras) throws ParseException {
 		
 		carTypeService = new CarTypeService(carTypeDao, extraDao);
 		

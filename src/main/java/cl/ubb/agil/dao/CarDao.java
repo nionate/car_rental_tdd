@@ -7,6 +7,6 @@ import cl.ubb.agil.model.CarSpecification;
 
 public interface CarDao {
 	
-	public List<Car> getAllByBranchId(int branchId);
+	public List<Car> getAllByBranchId(String branchId);
 	public List<Car> getAllByCarSpecificationId(int carSpecificationId);
 }

@@ -18,7 +18,7 @@ public class SanctionService {
 		}else{
 			
 			for(Sanction sanction : sanctions){
-				String cRut = sanction.getCustomer().getRut();
+				String cRut = sanction.getRutCustomer();
 				
 				if(rut.equals(cRut) && verifyDays(sanction.getStartDate(), sanction.getDays(), date)){
 					return true;

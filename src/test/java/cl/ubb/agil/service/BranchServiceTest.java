@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cl.ubb.agil.dao.BranchDao;
 import cl.ubb.agil.model.Branch;
@@ -31,13 +32,13 @@ public class BranchServiceTest {
 	@Test
 	public void sizeOfGetAllBranchesIsOneTest() throws EmptyListException{
 		/*Arrange*/
-		Branch branch = new Branch (1111, "Santiago", "Terminal TurBus");
-		ArrayList<Branch> branches = new ArrayList<Branch>();
+		Branch branch = new Branch ("1111", "Santiago", "Terminal TurBus");
+		List<Branch> branches = new ArrayList<Branch>();
 		branches.add(branch);
 		when(branchDao.getAll()).thenReturn(branches);
 		
 		/*Act*/
-		ArrayList<Branch> listBranches = branchService.getAll();
+		List<Branch> listBranches = branchService.getAll();
 		
 		/*Assert*/
 		assertThat(listBranches, is(equalTo(branches)));
@@ -46,15 +47,15 @@ public class BranchServiceTest {
 	@Test
 	public void sizeOfGetAllBranchesIsTwoTest() throws EmptyListException{
 		/*Arrange*/
-		Branch branch = new Branch (1111, "Santiago", "Terminal TurBus");
-		Branch branch1 = new Branch (1112, "Santiago", "Airport Comodoro");
+		Branch branch = new Branch ("1111", "Santiago", "Terminal TurBus");
+		Branch branch1 = new Branch ("1112", "Santiago", "Airport Comodoro");
 		ArrayList<Branch> branches = new ArrayList<Branch>();
 		branches.add(branch);
 		branches.add(branch1);
 		when(branchDao.getAll()).thenReturn(branches);
 		
 		/*Act*/
-		ArrayList<Branch> listBranches = branchService.getAll();
+		List<Branch> listBranches = branchService.getAll();
 		
 		/*Assert*/
 		assertThat(listBranches, is(equalTo(branches)));;
@@ -63,7 +64,7 @@ public class BranchServiceTest {
 	@Test (expected=EmptyListException.class)
 	public void GetAllBranchesReturnEmptyTest()throws EmptyListException{
 		/*Arrange*/
-		ArrayList<Branch> branches = new ArrayList<Branch>();
+		List<Branch> branches = new ArrayList<Branch>();
 		when(branchDao.getAll()).thenReturn(branches);
 		
 		/*Act*/

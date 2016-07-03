@@ -1,5 +1,6 @@
 package cl.ubb.agil.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class CarTypeServiceTest {
 	}
 		
 	@Test
-	public void shouldReturn39000WhenACarTypeWithId2IsConsulted(){
+	public void shouldReturn39000WhenACarTypeWithId2IsConsulted() throws ParseException{
 		
 		String startDate = "05/05/2016";
 		String endDate = "08/05/2016";

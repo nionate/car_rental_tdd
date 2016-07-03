@@ -46,8 +46,8 @@ public class SanctionServiceTest {
 		
 		when(sMock.getStartDate()).thenReturn("10/05/2016");
 		when(sMock.getDays()).thenReturn(5);
-		when(sMock.getCustomer()).thenReturn(cMock);
 		when(cMock.getRut()).thenReturn("184312107");
+		when(sMock.getRutCustomer()).thenReturn("184312107");
 		when(sdao.getAllByCostumer(cMock.getRut())).thenReturn(sanctions);
 		
 		boolean result = sService.searchUserWithSanction("184312107", "12/05/2016");
@@ -62,8 +62,8 @@ public class SanctionServiceTest {
 		
 		when(sMock.getStartDate()).thenReturn("01/06/2016");
 		when(sMock.getDays()).thenReturn(2);
-		when(sMock.getCustomer()).thenReturn(cMock);
 		when(cMock.getRut()).thenReturn("184312107");
+		when(sMock.getRutCustomer()).thenReturn("184312107");
 		when(sdao.getAllByCostumer(cMock.getRut())).thenReturn(sanctions);
 		
 		boolean result = sService.searchUserWithSanction("184312107", "30/05/2016");
@@ -79,8 +79,8 @@ public class SanctionServiceTest {
 		
 		when(sMock.getStartDate()).thenReturn("01/06/2016");
 		when(sMock.getDays()).thenReturn(3);
-		when(sMock.getCustomer()).thenReturn(cMock);
 		when(cMock.getRut()).thenReturn("184313008");
+		when(sMock.getRutCustomer()).thenReturn("184312107");
 		when(sdao.getAllByCostumer(cMock.getRut())).thenReturn(sanctions);
 		
 		boolean result = sService.searchUserWithSanction("184313008", "05/06/2016");

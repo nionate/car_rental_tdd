@@ -6,15 +6,15 @@ public class Sanction {
 	private String description;
 	private String startDate;
 	private int days;
-	private Customer customer;
+	private String rutCustomer;
 	
-	public Sanction(String identifier, String description, String startDate, int days, Customer customer) {
+	public Sanction(String identifier, String description, String startDate, int days, String rutCustomer) {
 		super();
 		this.identifier = identifier;
 		this.description = description;
 		this.startDate = startDate;
 		this.days = days;
-		this.customer = customer;
+		this.rutCustomer = rutCustomer;
 	}
 	
 	public Sanction() {
@@ -45,12 +45,12 @@ public class Sanction {
 		this.days = days;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public String getRutCustomer() {
+		return rutCustomer;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer(String rutCustomer) {
+		this.rutCustomer = rutCustomer;
 	}
 	
 	

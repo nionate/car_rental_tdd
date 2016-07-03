@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ import cl.ubb.agil.model.CustomerCategory;
 import cl.ubb.agil.model.Extra;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookingServiceTest {
+public class BookingServiceTest{
 
 	@Mock
 	private BookingDao bookingDao;
@@ -61,13 +62,13 @@ public class BookingServiceTest {
 	 * $40.000.
 	 */
 	@Test
-	public void shouldReturn40000WhenAClienteBookingACarForFourDays() {
+	public void shouldReturn40000WhenAClienteBookingACarForFourDays() throws ParseException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
 		String endDay = "15/06/2016";
 		String bookingHour = "15:00";
-		Branch santiago = new Branch(1, "Santiago", "");
+		Branch santiago = new Branch("1", "Santiago", "");
 		List<BookingExtra> extras = new ArrayList<>();
 
 		// Cars List
@@ -89,8 +90,8 @@ public class BookingServiceTest {
 		when(carTypeDao.getCarType(1)).thenReturn(type);
 		when(cCategoryDao.getCustomerCategoryById(1)).thenReturn(cCategory);
 		when(customerDao.getCustomer(rutCliente)).thenReturn(customer);
-		when(branchDao.get(1)).thenReturn(santiago);
-		when(carDao.getAllByBranchId(1)).thenReturn(cars);
+		when(branchDao.get("1")).thenReturn(santiago);
+		when(carDao.getAllByBranchId("1")).thenReturn(cars);
 		when(carSpecDao.getAllCarsByType(1)).thenReturn(carSpecs);
 		when(carSpecDao.get(0)).thenReturn(nissan);
 		when(carSpecDao.get(1)).thenReturn(chevrolet);
@@ -109,13 +110,13 @@ public class BookingServiceTest {
 	 * $5.000 extra).
 	 */
 	@Test
-	public void shoulReturn60000WhenAClientBookingACarForFourDaysWithExtras() {
+	public void shoulReturn60000WhenAClientBookingACarForFourDaysWithExtras() throws ParseException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
 		String endDay = "15/06/2016";
 		String bookingHour = "15:00";
-		Branch santiago = new Branch(1, "Santiago", "");
+		Branch santiago = new Branch("1", "Santiago", "");
 		Extra sillaBebe = new Extra(1, "silla para bebe", "", 5000);
 		List<BookingExtra> extras = new ArrayList<>();
 		extras.add(new BookingExtra(1, 1));
@@ -139,8 +140,8 @@ public class BookingServiceTest {
 		when(carTypeDao.getCarType(1)).thenReturn(type);
 		when(cCategoryDao.getCustomerCategoryById(1)).thenReturn(cCategory);
 		when(customerDao.getCustomer(rutCliente)).thenReturn(customer);
-		when(branchDao.get(1)).thenReturn(santiago);
-		when(carDao.getAllByBranchId(1)).thenReturn(cars);
+		when(branchDao.get("1")).thenReturn(santiago);
+		when(carDao.getAllByBranchId("1")).thenReturn(cars);
 		when(carSpecDao.getAllCarsByType(1)).thenReturn(carSpecs);
 		when(carSpecDao.get(0)).thenReturn(nissan);
 		when(carSpecDao.get(1)).thenReturn(chevrolet);
@@ -160,13 +161,13 @@ public class BookingServiceTest {
 	 * $72.000 ($10.000 auto + $5.000 silla para bebé + $3.000 GPS).
 	 */
 	@Test
-	public void shouldReturn72000WhenAClientBookingACarForTwoDaysWithTwoExtras() {
+	public void shouldReturn72000WhenAClientBookingACarForTwoDaysWithTwoExtras() throws ParseException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
 		String endDay = "15/06/2016";
 		String bookingHour = "15:00";
-		Branch santiago = new Branch(1, "Santiago", "");
+		Branch santiago = new Branch("1", "Santiago", "");
 		Extra sillaBebe = new Extra(1, "silla para bebe", "", 5000);
 		Extra gps = new Extra(2, "GPS", "", 3000);
 		List<BookingExtra> extras = new ArrayList<>();
@@ -192,8 +193,8 @@ public class BookingServiceTest {
 		when(carTypeDao.getCarType(1)).thenReturn(type);
 		when(cCategoryDao.getCustomerCategoryById(1)).thenReturn(cCategory);
 		when(customerDao.getCustomer(rutCliente)).thenReturn(customer);
-		when(branchDao.get(1)).thenReturn(santiago);
-		when(carDao.getAllByBranchId(1)).thenReturn(cars);
+		when(branchDao.get("1")).thenReturn(santiago);
+		when(carDao.getAllByBranchId("1")).thenReturn(cars);
 		when(carSpecDao.getAllCarsByType(1)).thenReturn(carSpecs);
 		when(carSpecDao.get(0)).thenReturn(nissan);
 		when(carSpecDao.get(1)).thenReturn(chevrolet);

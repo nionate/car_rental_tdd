@@ -1,21 +1,21 @@
 package cl.ubb.agil.model;
 
 public class Branch {
-	int identifier;
+	String identifier;
 	String city;
 	String sector;
 	
-	public Branch(int identifier, String city, String sector) {
+	public Branch(String identifier, String city, String sector) {
 		super();
 		this.identifier = identifier;
 		this.city = city;
 		this.sector = sector;
 	}
 	
-	public int getIdentifier() {
+	public String getIdentifier() {
 		return identifier;
 	}
-	public void setIdentifier(int identifier) {
+	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
 	public String getCity() {

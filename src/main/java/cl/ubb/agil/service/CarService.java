@@ -26,7 +26,7 @@ public class CarService {
 	private CarDao carDao;
 	private CarSpecificationDao carSpecificationDao;
 
-	public Car getACarIfPermitted(String customerRut, CarType carType, int idOriginBranch, String startDate, int idDestinyBranch,
+	public Car getACarIfPermitted(String customerRut, CarType carType, String idOriginBranch, String startDate, String idDestinyBranch,
 			String endDate, HashMap<Integer, Integer> extras) throws EmptyListException {
 
 		Car car = null;

@@ -32,7 +32,7 @@ public class CarTypeService {
 			return carsTypes;
 	}
 
-	public int getPrice(String startDate, String endDate, int identifier, List<BookingExtra> extras) {
+	public int getPrice(String startDate, String endDate, int identifier, List<BookingExtra> extras) throws ParseException {
 		int total_price = 0;
 		int diff_days = diffDays(stringToDate(endDate), stringToDate(startDate));
 		CarType type = carTypeDao.getCarType(identifier);
@@ -53,15 +53,10 @@ public class CarTypeService {
 		return (int) days;
 	}
 	
-	public Date stringToDate(String dateString){
+	public Date stringToDate(String dateString) throws ParseException{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = null;
-
-		try {
-			date = formatter.parse(dateString);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		date = formatter.parse(dateString);
 		return date;
 	}
 }

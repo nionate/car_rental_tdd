@@ -77,12 +77,12 @@ public class CarServiceTest {
 		when(customerDao.getCustomer("184312107")).thenReturn(customer);
 		when(constraintDao.getAll()).thenReturn(tcList);
 		when(csDao.getAllCarsByType(2)).thenReturn(csList);
-		when(carDao.getAllByBranchId(1)).thenReturn(cListBranch);
+		when(carDao.getAllByBranchId("1")).thenReturn(cListBranch);
 		when(carDao.getAllByCarSpecificationId(1)).thenReturn(cListBySpecification);
 		
 
 		
-		Car resultado = carService.getACarIfPermitted("184312107", mock1, 1, "06/06/2016", 1, "08/06/2016", extras);
+		Car resultado = carService.getACarIfPermitted("184312107", mock1, "1", "06/06/2016", "1", "08/06/2016", extras);
 		
 		assertEquals("ADWS-12", resultado.getLicensePlate());
 	}
@@ -116,10 +116,10 @@ public class CarServiceTest {
 		when(customerDao.getCustomer("184312107")).thenReturn(customer);
 		when(constraintDao.getAll()).thenReturn(tcList);
 		when(csDao.getAllCarsByType(2)).thenReturn(csList);
-		when(carDao.getAllByBranchId(1)).thenReturn(cListBranch);
+		when(carDao.getAllByBranchId("1")).thenReturn(cListBranch);
 		when(carDao.getAllByCarSpecificationId(1)).thenReturn(cListBySpecification);
 		
-		Car resultado = carService.getACarIfPermitted("184312107", mock1, 1, "06/06/2016", 1, "08/06/2016", extras);
+		Car resultado = carService.getACarIfPermitted("184312107", mock1, "1", "06/06/2016", "1", "08/06/2016", extras);
 		
 		assertNull(resultado);
 	}
