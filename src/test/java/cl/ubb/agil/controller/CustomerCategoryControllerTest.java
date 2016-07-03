@@ -44,7 +44,7 @@ public class CustomerCategoryControllerTest {
 	}
 	
 	@Test
-	public void shouldBeEmptyWhenGetAllBranchesIsCalledAndNoBranchExist() throws EmptyListException{
+	public void shouldBeEmptyWhenGetAllCustomerCategoriesIsCalledAndNoCustomerCategoriesExist() throws EmptyListException{
 		
 		doThrow(new EmptyListException()).when(customerCategoryService).getAllCategories();
 		
@@ -57,7 +57,7 @@ public class CustomerCategoryControllerTest {
 	}
 	
 	@Test
-	public void shouldReturnAListOfBranchWhenGetAllBranchesIsCalled() throws EmptyListException{
+	public void shouldReturnAListOfCustomerCategoriesWhenGetAllCustomerCategoriesIsCalled() throws EmptyListException{
 		
 		when(customerCategoryService.getAllCategories()).thenReturn(categories);
 		
