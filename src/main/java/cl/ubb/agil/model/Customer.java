@@ -8,6 +8,7 @@ public class Customer {
 	private String email;
 	private int idCustomerCategory;
 	
+	@java.beans.ConstructorProperties({"rut","name","cellPhone","email","idCustomerCategory"})
 	public Customer(String rut, String name, String cellPhone, String email, int idCustomerCategory) {
 		this.rut = rut;
 		this.name = name;

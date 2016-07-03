@@ -1,6 +1,6 @@
 package cl.ubb.agil.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import java.util.List;
 
@@ -37,7 +37,5 @@ public class CarTypeController {
 		}
 		return response;
 	}
-	
-	
 	
 }

@@ -206,4 +206,5 @@ public class BookingServiceTest{
 
 		assertEquals(72000, resultado);
 	}
+
 }

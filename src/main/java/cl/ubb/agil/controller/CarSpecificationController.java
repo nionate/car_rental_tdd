@@ -22,11 +22,11 @@ public class CarSpecificationController {
 	@Autowired
 	private CarSpecificationService carSpecificationService;
 	
-	@RequestMapping(value = ("/list"), method=GET)
-	@ResponseBody
-	public ResponseEntity<List<CarSpecification>> getAllCarSpecification(){
+	//@RequestMapping(value = ("/list"), method=GET)
+	//@ResponseBody
+	//public ResponseEntity<List<CarSpecification>> getAllCarSpecification(){
 		
-	}
+	//}
 	
 
 	
