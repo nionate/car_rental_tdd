@@ -10,8 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-
-
+import static org.mockito.Mockito.when;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -20,6 +19,7 @@ import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
 import cl.ubb.agil.model.Customer;
 import cl.ubb.agil.service.CustomerService;
+import cl.ubb.agil.service.exception.CreateException;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 
@@ -51,6 +51,8 @@ public class CustomerControllerTest {
 			body("name",equalTo("Miguel")).
 			body("cellPhone",equalTo("98765432"));
 	}
+	
+	
 	
 	
 

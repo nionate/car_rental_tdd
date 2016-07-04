@@ -11,9 +11,9 @@ public class CarSpecificationService {
 	
 	private CarSpecificationDao csDao;
 
-	public List<CarSpecification> getAllCarsByType(CarType carType) throws EmptyListException {
+	public List<CarSpecification> getAllCarsByType(int carType) throws EmptyListException {
 		
-		List<CarSpecification> cars = csDao.getAllCarsByType(carType.getIdentifier());
+		List<CarSpecification> cars = csDao.getAllCarsByType(carType);
 		
 		if(cars.isEmpty())
 			throw new EmptyListException();

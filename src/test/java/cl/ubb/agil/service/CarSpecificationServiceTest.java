@@ -22,6 +22,8 @@ import cl.ubb.agil.service.exception.EmptyListException;
 @RunWith(MockitoJUnitRunner.class)
 public class CarSpecificationServiceTest {
 	
+	private int identifier;
+	
 	@Mock
 	private CarSpecificationDao csDao;
 	
@@ -34,12 +36,11 @@ public class CarSpecificationServiceTest {
 		List<CarSpecification> list = new ArrayList<CarSpecification>();
 		list.add(new CarSpecification(0, "chevrolet", "dmax", "2010"));
 		
-		CarType mock1 = mock(CarType.class);
+		identifier = 1;
 		
-		when(mock1.getIdentifier()).thenReturn(1);
 		when(csDao.getAllCarsByType(1)).thenReturn(list);
 		
-		List<CarSpecification> result = csService.getAllCarsByType(mock1);
+		List<CarSpecification> result = csService.getAllCarsByType(identifier);
 		
 		assertThat(result, is(equalTo(list)));	
 		assertEquals(1, result.size());
@@ -52,12 +53,11 @@ public class CarSpecificationServiceTest {
 		list.add(new CarSpecification(0, "chevrolet", "dmax", "2010"));
 		list.add(new CarSpecification(1, "toyota", "yaris", "2014"));
 		
-		CarType mock1 = mock(CarType.class);
+		identifier = 1;
 		
-		when(mock1.getIdentifier()).thenReturn(1);
 		when(csDao.getAllCarsByType(1)).thenReturn(list);
 		
-		List<CarSpecification> result = csService.getAllCarsByType(mock1);
+		List<CarSpecification> result = csService.getAllCarsByType(identifier);
 		
 		assertThat(result, is(equalTo(list)));	
 		assertEquals(2, result.size());
@@ -67,12 +67,11 @@ public class CarSpecificationServiceTest {
 	public void getAllCarsByTypeReturnAnEmptyListAndShouldThrowEmptyListException() throws EmptyListException{
 		
 		List<CarSpecification> list = new ArrayList<CarSpecification>();
-		CarType mock1 = mock(CarType.class);
+		identifier = 1;
 		
-		when(mock1.getIdentifier()).thenReturn(1);
 		when(csDao.getAllCarsByType(1)).thenReturn(list);
 		
-		List<CarSpecification> result = csService.getAllCarsByType(mock1);
+		List<CarSpecification> result = csService.getAllCarsByType(identifier);
 		
 	}
 }
