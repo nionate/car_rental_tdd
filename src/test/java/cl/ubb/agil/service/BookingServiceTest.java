@@ -23,6 +23,7 @@ import cl.ubb.agil.dao.CarTypeDao;
 import cl.ubb.agil.dao.CustomerCategoryDao;
 import cl.ubb.agil.dao.CustomerDao;
 import cl.ubb.agil.dao.ExtraDao;
+import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.Branch;
 import cl.ubb.agil.model.Car;
@@ -205,6 +206,21 @@ public class BookingServiceTest{
 				santiago.getIdentifier(), endDay, bookingHour, type.getIdentifier(), extras);
 
 		assertEquals(72000, resultado);
+	}
+	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
+	Retorna una lista con dos reservas.*/
+	@Test
+	public void shouldReturnListWhenTheCustomerHasTwoReservasfromASpecificDate(){
+		String rutCustomer = "18431210-7";
+		String fechaInicio = "10/10/2015";
+		List <Booking> bookings = new ArrayList();
+		Booking booking1 = new Booking("11/10/2015","17/10/2015",50000, "18431210-7", "",null, null);
+		Booking booking2 = new Booking("15/10/2015","20/10/2015",50000, "18431210-7", "",null, null);
+		Booking booking3 = new Booking("01/10/2015","05/10/2015",50000, "18431210-7", "",null, null);
+		bookings.add(booking1);
+		bookings.add(booking2);
+		bookings.add(booking3);
+		
 	}
 
 }
