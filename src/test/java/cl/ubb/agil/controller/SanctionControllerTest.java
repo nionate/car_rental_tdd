@@ -40,5 +40,15 @@ public void ShoulReturnFalseWhenCallASearchUserWithSanction(){
 		body("result",equalTo(false)).
 		statusCode(SC_OK);
 }
-
+@Test
+public void ShoulReturnTrueWhenCallASearchUserWithSanction(){
+	when(sanctionService.searchUserWithSanction("18770816-8","02/10/15")).thenReturn(true);
+	given().
+	when().
+		get("/sanction/haveActiveSanctionByCustomer/18770816-8/?date=02/10/15").
+	then().
+		assertThat().
+		body("result",equalTo(true)).
+		statusCode(SC_OK);
+}
 }
