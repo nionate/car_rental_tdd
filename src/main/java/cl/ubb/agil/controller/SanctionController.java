@@ -23,7 +23,8 @@ public class SanctionController {
 		@ResponseBody
 		public Map<String,Boolean> searchActiveSanctionByCustomer(@PathVariable("rutCustomer") String rutCustomer, 
 				@RequestParam(value="date",required = true) String date){
-			return Collections.singletonMap("result", false);
+			boolean result = sanctionService.searchUserWithSanction(rutCustomer, date);
+			return Collections.singletonMap("result", result);
 		}
 }
 
