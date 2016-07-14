@@ -61,7 +61,7 @@ public class BookingService {
 	public int booking(String customerRut, String origin, String startDay, String startHour, String destiny, String endDay,
 			String endHour, int carTypeId, List<BookingExtra> extras) throws ParseException {
 		
-		System.out.println("FSGDFGDFGDSGDFSGDFSGDFGDFGDFGDF");
+		System.out.println("BookingService - booking...");
 		
 		
 		carTypeService = new CarTypeService(carTypeDao, extraDao);

@@ -1,13 +1,18 @@
 package cl.ubb.agil.controller;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.any;
+
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -64,6 +69,7 @@ public class BookingControllerTest {
 		return results;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void shouldReturnAValueToPayWhenAClientBookACarWithOutExtras() throws ParseException{
 		
@@ -74,25 +80,24 @@ public class BookingControllerTest {
 		Branch santiago = new Branch("1", "Santiago", "");
 		CarType type = new CarType(1, "", "automatic", "diesel", "", 4, 5, 10000);*/
 		List<BookingExtra> extras = new ArrayList<>();
-		extras.add(new BookingExtra(1, 1));
+		//extras.add(new BookingExtra(1, 1));
 		/*String[] extraStrings = fillExtraStrings(extras);
 		
 		String extrasIds = extraStrings[0];
 		String extrasQuantity = extraStrings[1];*/
-		
-		
+				
 		when(bookingService.booking(
-				"18770816-8", 
-				"1", 
-				"11/06/2016",
-				"15:00", 
-				"1",
-				"15/06/2016", 
-				"15:00", 
-				1, 
-				extras))
+				Mockito.eq("18770816-8"), 
+				Mockito.eq("1"), 
+				Mockito.eq("11/06/2016"),
+				Mockito.eq("15:00"), 
+				Mockito.eq("1"),
+				Mockito.eq("15/06/2016"), 
+				Mockito.eq("15:00"), 
+				Mockito.eq(1), 
+				anyListOf(BookingExtra.class)))
 		.thenReturn(40000);
-
+				
 		given().
 			contentType(ContentType.JSON).
 			body(extras).
@@ -100,7 +105,7 @@ public class BookingControllerTest {
 			post("/booking/bookingACar/18770816-8/1/15:00/1/15:00/1/?startDate=11/06/2016&endDate=15/06/2016").
 		then().
 			assertThat().
-			body("result",equalTo(40000)).
+			body(equalTo("40000")).
 			statusCode(SC_OK);
 	}
 }

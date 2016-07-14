@@ -41,25 +41,16 @@ public class BookingController {
 				@RequestParam(value = "endDate", required = true) String endDate,
 				final @RequestBody List<BookingExtra> extras
 				){
-			 
-			 for(BookingExtra extra: extras){
-				 System.out.println("extras " + extra.getExtraId() + "  " + extra.getNumber() );
-			 }
-			 System.out.println("RUT " + customerRut);
-			 System.out.println("CARTYPEID " + carTypeID);
-			 System.out.println("DATES " + startDate + " " + endDate);
-			 System.out.println("hour " + endHour);
-			 
+		
+			 	 
 			ResponseEntity<Integer> result = null;
 			try {
-				System.out.println("---------------");
 				int aux = bookingService.booking(customerRut, originPlace, startDate, startHour, destinyPlace, endDate, endHour, carTypeID, extras);
 				result = new ResponseEntity<Integer>(aux, HttpStatus.OK);
 			} catch (ParseException e) {
-				System.out.println("Las fechas no est·n en el formato dd/mm/aaaa");
+				System.out.println("Las fechas no est√°n en el formato dd/mm/aaaa");
 			}
 			
-			System.out.println("RESULT " + result);
 			return result;
 		}
 }
