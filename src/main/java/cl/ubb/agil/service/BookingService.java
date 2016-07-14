@@ -34,12 +34,35 @@ public class BookingService {
 	
 	private CarTypeService carTypeService;
 	
+	public BookingService(BookingDao bookingDao, CarTypeDao carTypeDao, CustomerDao customerDao,
+			CustomerCategoryDao cCategoryDao, CarDao carDao, CarSpecificationDao carSpecDao, BranchDao branchDao,
+			ExtraDao extraDao, CarTypeService carTypeService) {
+		super();
+		this.bookingDao = bookingDao;
+		this.carTypeDao = carTypeDao;
+		this.customerDao = customerDao;
+		this.cCategoryDao = cCategoryDao;
+		this.carDao = carDao;
+		this.carSpecDao = carSpecDao;
+		this.branchDao = branchDao;
+		this.extraDao = extraDao;
+		this.carTypeService = carTypeService;
+	}
+
+	public BookingService(CarTypeService carTypeService) {
+		super();
+		this.carTypeService = carTypeService;
+	}
+
 	public BookingService(){
 
 	}
 
 	public int booking(String customerRut, String origin, String startDay, String startHour, String destiny, String endDay,
 			String endHour, int carTypeId, List<BookingExtra> extras) throws ParseException {
+		
+		System.out.println("FSGDFGDFGDSGDFSGDFSGDFGDFGDFGDF");
+		
 		
 		carTypeService = new CarTypeService(carTypeDao, extraDao);
 		

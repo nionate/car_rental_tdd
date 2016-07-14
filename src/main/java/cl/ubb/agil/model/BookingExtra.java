@@ -5,6 +5,8 @@ public class BookingExtra {
 	private int number;
 	private int extraId;
 	
+	public BookingExtra(){}
+	
 	public BookingExtra(int number, int extraId) {
 		super();
 		this.number = number;
