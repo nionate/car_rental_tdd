@@ -53,6 +53,31 @@ public class CustomerControllerTest {
 	}
 	
 	
+	@Test
+	public void returnTrueWhenCustomerIsRegister(){
+		when(customerService.isRegistered("18451564-4")).thenReturn(true);
+		given().
+		when().
+			get("/customer/isregister/18451564-4").
+		then().
+			assertThat().
+			body("result",equalTo(true)).
+			statusCode(SC_OK);
+	}
+	
+	@Test
+	public void returnFalseWhenCustomerIsNotRegister(){
+		when(customerService.isRegistered("18451564-4")).thenReturn(false);
+		given().
+		when().
+			get("/customer/isregister/18451564-4").
+		then().
+			assertThat().
+			body("result",equalTo(false)).
+			statusCode(SC_OK);
+	}
+	
+	
 	
 	
 

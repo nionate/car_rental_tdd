@@ -2,6 +2,10 @@ package cl.ubb.agil.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.Collections;
+import java.util.Map;
+
 import static org.springframework.http.HttpStatus.*;
 
 
@@ -9,6 +13,7 @@ import static org.springframework.http.HttpStatus.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +45,15 @@ public class CustomerController {
 		}
 		return response;
 	}
+	
+	@RequestMapping(value = "/isregister/{rut}", method= GET)
+	@ResponseBody
+	public Map<String,Boolean> customerisRegister(@PathVariable("rut")String rut){
+		boolean result = customerService.isRegistered(rut);
+		return Collections.singletonMap("result", result);
+		
+	}
+	
 	
 
 
