@@ -211,7 +211,7 @@ public class BookingServiceTest{
 	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
 	Retorna una lista con dos reservas.*/
 	@Test
-	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate() throws EmptyListException{
+	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate() throws EmptyListException, ParseException{
 		String rutCustomer = "18431210-7";
 		String startRangeDate = "10/10/2015";
 		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
@@ -235,7 +235,7 @@ public class BookingServiceTest{
 	/*El cliente 18431210-7, no tiene ninguna reserva. La fecha de inicio para listar reservas es: 10/10/2015.
 	Retorna EmptyListException.*/
 	@Test(expected = EmptyListException.class)
-	public void GetBookingsbyRangeDateAndCustomerReturnEmptyTest() throws EmptyListException {
+	public void GetBookingsbyRangeDateAndCustomerReturnEmptyTest() throws EmptyListException, ParseException {
 		String rutCustomer = "18431210-7";
 		String startDate = "10/10/2015";
 		List<Booking> bookings = new ArrayList<Booking>();
@@ -248,7 +248,7 @@ public class BookingServiceTest{
 	/*El cliente 18431210-7 , tiene cuatro reservas, la primera con fecha 11/09/2015, la segunda con fecha 11/10/2015, la tercera con fecha 15/11/2015 y la cuarta con fecha 17/12/2015. La fecha de inicio para listar reservas es: 10/10/2015.
 	Retorna una lista con tres reservas*/
 	@Test
-	public void shouldReturnListWithTreeBookingsWhenTheCustomerHasThreeBookingfromASpecificDate() throws EmptyListException {
+	public void shouldReturnListWithTreeBookingsWhenTheCustomerHasThreeBookingfromASpecificDate() throws EmptyListException, ParseException {
 		String rutCustomer = "18431210-7";
 		String startRangeDate = "10/10/2015";
 		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
