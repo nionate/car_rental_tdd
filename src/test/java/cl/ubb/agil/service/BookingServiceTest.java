@@ -211,7 +211,7 @@ public class BookingServiceTest{
 	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
 	Retorna una lista con dos reservas.*/
 	@Test
-	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate(){
+	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate() throws EmptyListException{
 		String rutCustomer = "18431210-7";
 		String startRangeDate = "10/10/2015";
 		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
