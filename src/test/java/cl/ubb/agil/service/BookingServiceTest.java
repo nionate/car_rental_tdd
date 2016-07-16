@@ -232,6 +232,19 @@ public class BookingServiceTest{
 		assertEquals(60000,bookingsbyRangeDateAndCustomer.get(1).getDueAmount());
 	}
 	
+	/*El cliente 18431210-7, no tiene ninguna reserva. La fecha de inicio para listar reservas es: 10/10/2015.
+	Retorna EmptyListException.*/
+	@Test(expected = EmptyListException.class)
+	public void GetBookingsbyRangeDateAndCustomerReturnEmptyTest() throws EmptyListException {
+		String rutCustomer = "18431210-7";
+		String startDate = "10/10/2015";
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		when(bookingDao.getAllBookingByCostumer(rutCustomer)).thenReturn(bookings);
+		
+		bookingService.getBookingsByRangeDateAndCustomer(rutCustomer, startDate, "");
+	}
+	
 
 
 }
