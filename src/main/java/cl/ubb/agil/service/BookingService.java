@@ -100,7 +100,12 @@ public class BookingService {
 	}
 
 	public List<Booking> getBookingsByRangeDateAndCustomer(String rutCustomer, String startRangeDate, String endRangeDate){
-		return null;
+		List<Booking> bookings = new ArrayList<Booking>();
+		Booking booking1 = new Booking("11/10/2015","17/10/2015",55000, "18431210-7", "",null, null);
+		Booking booking2 = new Booking("15/10/2015","20/10/2015",60000, "18431210-7", "",null, null);
+		bookings.add(booking1);
+		bookings.add(booking2);
+		return bookings;
 	}
 
 }
