@@ -209,7 +209,7 @@ public class BookingServiceTest{
 		assertEquals(72000, resultado);
 	}
 	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
-	Retorna una lista con dos reservas.*/
+	 *Retorna una lista con dos reservas.*/
 	@Test
 	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate() throws EmptyListException, ParseException{
 		String rutCustomer = "18431210-7";
@@ -233,7 +233,7 @@ public class BookingServiceTest{
 	}
 	
 	/*El cliente 18431210-7, no tiene ninguna reserva. La fecha de inicio para listar reservas es: 10/10/2015.
-	Retorna EmptyListException.*/
+	 *Retorna EmptyListException.*/
 	@Test(expected = EmptyListException.class)
 	public void GetBookingsbyRangeDateAndCustomerReturnEmptyTest() throws EmptyListException, ParseException {
 		String rutCustomer = "18431210-7";
@@ -246,7 +246,7 @@ public class BookingServiceTest{
 	}
 	
 	/*El cliente 18431210-7 , tiene cuatro reservas, la primera con fecha 11/09/2015, la segunda con fecha 11/10/2015, la tercera con fecha 15/11/2015 y la cuarta con fecha 17/12/2015. La fecha de inicio para listar reservas es: 10/10/2015.
-	Retorna una lista con tres reservas*/
+	 *Retorna una lista con tres reservas*/
 	@Test
 	public void shouldReturnListWithTreeBookingsWhenTheCustomerHasThreeBookingfromASpecificDate() throws EmptyListException, ParseException {
 		String rutCustomer = "18431210-7";
@@ -275,6 +275,30 @@ public class BookingServiceTest{
 		assertEquals(70000,bookingsbyRangeDateAndCustomer.get(2).getDueAmount());
 	}
 	
-
+	/* El cliente 18431210-7 , tiene dos reservas, la primera con fecha de inicio: 11/09/2015 y fecha de termino: 17/09/2015 y la segunda con fecha de inicio: 11/10/2015 y con fecha de termino: 19/10/2015. 
+	 * El rango de fechas para listar reservas es: 10/10/2015 y 20/10/2015
+     * Retorna una lista con una reservas*/
+	@Test
+	public void shouldReturnListWhenTheCustomerHasOneBookingfromASpecificStartAndEndDate() throws EmptyListException, ParseException{
+		String rutCustomer = "18431210-7";
+		String startRangeDate = "10/10/2015";
+		String endRangeDate = "20/10/2015";
+		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
+		List <Booking> bookings = new ArrayList<Booking>();
+		Booking booking1 = new Booking("11/09/2015","17/09/2015",70000, "18431210-7", "",null, null);
+		Booking booking2 = new Booking("11/10/2015","19/10/2015",80000, "18431210-7", "",null, null);
+		Booking booking3 = new Booking("10/11/2015","19/11/2015",80000, "18431210-7", "",null, null);
+		bookings.add(booking1);
+		bookings.add(booking2);
+		bookings.add(booking3);
+		
+		when(bookingDao.getAllBookingByCostumer(rutCustomer)).thenReturn(bookings);
+		
+		bookingsbyRangeDateAndCustomer = bookingService.getBookingsByRangeDateAndCustomer(rutCustomer,startRangeDate,endRangeDate);
+		
+		assertEquals(1,bookingsbyRangeDateAndCustomer.size());
+		assertEquals("18431210-7",bookingsbyRangeDateAndCustomer.get(0).getCustomerRut());
+		assertEquals(80000,bookingsbyRangeDateAndCustomer.get(0).getDueAmount());
+	}
 
 }
