@@ -275,9 +275,11 @@ public class BookingServiceTest{
 		assertEquals(70000,bookingsbyRangeDateAndCustomer.get(2).getDueAmount());
 	}
 	
-	/* El cliente 18431210-7 , tiene dos reservas, la primera con fecha de inicio: 11/09/2015 y fecha de termino: 17/09/2015 y la segunda con fecha de inicio: 11/10/2015 y con fecha de termino: 19/10/2015. 
-	 * El rango de fechas para listar reservas es: 10/10/2015 y 20/10/2015
-     * Retorna una lista con una reservas*/
+	/*El cliente 18431210-7 , tiene tres reservas, la primera con fecha de inicio: 11/09/2015 y fecha de termino: 17/09/2015, 
+	 * la segunda con fecha de inicio: 11/10/2015 y con fecha de termino: 19/10/2015 y 
+	 * la tercera con fecha de inicio: 10/11/2015 y con fecha de termino: 19/11/2015. El rango de fechas para listar reservas es: 10/10/2015 y 20/10/2015.
+	 * Retorna una lista con una reserva
+	 */
 	@Test
 	public void shouldReturnListWhenTheCustomerHasOneBookingfromASpecificStartAndEndDateTest() throws EmptyListException, ParseException{
 		String rutCustomer = "18431210-7";

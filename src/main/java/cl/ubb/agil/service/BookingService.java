@@ -100,7 +100,7 @@ public class BookingService {
 	}
 
 	public List<Booking> getBookingsByRangeDateAndCustomer(String rutCustomer, String startRangeDate, String endRangeDate) throws EmptyListException, ParseException {
-		Date dateStartRange, dateStarBooking, dateEndRange;
+		Date dateStartRange, dateStartBooking, dateEndRange;
 		dateStartRange = convertDate(startRangeDate);
 		List<Booking> bookings = new ArrayList<Booking>();
 		List<Booking> result = new ArrayList<Booking>();
@@ -110,8 +110,8 @@ public class BookingService {
 		}
 		if(endRangeDate.equals("")){
 			for(Booking booking: bookings){
-				dateStarBooking = convertDate(booking.getStartDate());
-				if(dateStartRange==dateStarBooking || dateStartRange.before(dateStarBooking)){
+				dateStartBooking = convertDate(booking.getStartDate());
+				if(dateStartRange==dateStartBooking || dateStartRange.before(dateStartBooking)){
 					result.add(booking);
 				}
 			}
@@ -119,8 +119,8 @@ public class BookingService {
 		}else{
 			dateEndRange = convertDate(endRangeDate);
 			for(Booking booking: bookings){
-				dateStarBooking = convertDate(booking.getStartDate());
-				if((dateStartRange==dateStarBooking || dateStartRange.before(dateStarBooking))&&(dateStarBooking.before(dateEndRange))){
+				dateStartBooking = convertDate(booking.getStartDate());
+				if((dateStartRange==dateStartBooking || dateStartRange.before(dateStartBooking))&&(dateStartBooking.before(dateEndRange))){
 					result.add(booking);
 				}
 			}
