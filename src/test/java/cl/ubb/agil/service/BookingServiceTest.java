@@ -32,6 +32,7 @@ import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.model.Customer;
 import cl.ubb.agil.model.CustomerCategory;
 import cl.ubb.agil.model.Extra;
+import cl.ubb.agil.service.exception.EmptyListException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookingServiceTest{
@@ -210,17 +211,27 @@ public class BookingServiceTest{
 	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
 	Retorna una lista con dos reservas.*/
 	@Test
-	public void shouldReturnListWhenTheCustomerHasTwoReservasfromASpecificDate(){
+	public void shouldReturnListWithTwoBookingsWhenTheCustomerHasTwoBookingsfromASpecificDate(){
 		String rutCustomer = "18431210-7";
-		String fechaInicio = "10/10/2015";
-		List <Booking> bookings = new ArrayList();
-		Booking booking1 = new Booking("11/10/2015","17/10/2015",50000, "18431210-7", "",null, null);
-		Booking booking2 = new Booking("15/10/2015","20/10/2015",50000, "18431210-7", "",null, null);
-		Booking booking3 = new Booking("01/10/2015","05/10/2015",50000, "18431210-7", "",null, null);
+		String startRangeDate = "10/10/2015";
+		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
+		List <Booking> bookings = new ArrayList<Booking>();
+		Booking booking1 = new Booking("11/10/2015","17/10/2015",55000, "18431210-7", "",null, null);
+		Booking booking2 = new Booking("15/11/2015","21/11/2015",60000, "18431210-7", "",null, null);
 		bookings.add(booking1);
 		bookings.add(booking2);
-		bookings.add(booking3);
 		
+		when(bookingDao.getAllBookingByCostumer(rutCustomer)).thenReturn(bookings);
+		
+		bookingsbyRangeDateAndCustomer = bookingService.getBookingsByRangeDateAndCustomer(rutCustomer,startRangeDate,"");
+		
+		assertEquals(2,bookingsbyRangeDateAndCustomer.size());
+		assertEquals("18431210-7",bookingsbyRangeDateAndCustomer.get(0).getCustomerRut());
+		assertEquals("18431210-7",bookingsbyRangeDateAndCustomer.get(1).getCustomerRut());
+		assertEquals(55000,bookingsbyRangeDateAndCustomer.get(0).getDueAmount());
+		assertEquals(60000,bookingsbyRangeDateAndCustomer.get(1).getDueAmount());
 	}
+	
+
 
 }

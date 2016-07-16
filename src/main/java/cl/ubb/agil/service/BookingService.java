@@ -1,7 +1,10 @@
 package cl.ubb.agil.service;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cl.ubb.agil.dao.BookingDao;
@@ -20,6 +23,7 @@ import cl.ubb.agil.model.CarSpecification;
 import cl.ubb.agil.model.Customer;
 import cl.ubb.agil.model.CustomerCategory;
 import cl.ubb.agil.model.Extra;
+import cl.ubb.agil.service.exception.EmptyListException;
 
 public class BookingService {
 	
@@ -93,6 +97,10 @@ public class BookingService {
 		bookingDao.create(booking);
 		
 		return price;
+	}
+
+	public List<Booking> getBookingsByRangeDateAndCustomer(String rutCustomer, String startRangeDate, String endRangeDate){
+		return null;
 	}
 
 }
