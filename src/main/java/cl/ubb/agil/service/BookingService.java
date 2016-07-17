@@ -118,7 +118,7 @@ public class BookingService {
 		if(endRangeDate.equals("")){
 			for(Booking booking: bookings){
 				dateStartBooking = convertDate(booking.getStartDate());
-				if(dateStartRange==dateStartBooking || dateStartRange.before(dateStartBooking)){
+				if(startRangeDate.equals(booking.getStartDate()) || dateStartRange.before(dateStartBooking)){
 					result.add(booking);
 				}
 			}
@@ -127,8 +127,11 @@ public class BookingService {
 			dateEndRange = convertDate(endRangeDate);
 			for(Booking booking: bookings){
 				dateStartBooking = convertDate(booking.getStartDate());
-				if((dateStartRange==dateStartBooking || dateStartRange.before(dateStartBooking))&&(dateStartBooking.before(dateEndRange))){
-					result.add(booking);
+				if(startRangeDate.equals(booking.getStartDate()) || dateStartRange.before(dateStartBooking)){
+					if(endRangeDate.equals(booking.getStartDate()) || dateStartBooking.before(dateEndRange)){
+						result.add(booking);
+					}
+					
 				}
 			}
 			return result;

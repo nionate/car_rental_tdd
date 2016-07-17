@@ -312,7 +312,7 @@ public class BookingServiceTest{
 		List <Booking> bookingsbyRangeDateAndCustomer = new ArrayList<Booking>();
 		List <Booking> bookings = new ArrayList<Booking>();
 		Booking booking1 = new Booking("11/09/2015","17/09/2015",70000, "18431210-7", "",null, null);
-		Booking booking2 = new Booking("11/10/2015","20/10/2015",80000, "18431210-7", "",null, null);
+		Booking booking2 = new Booking("11/10/2015","21/10/2015",80000, "18431210-7", "",null, null);
 		Booking booking3 = new Booking("10/11/2015","19/11/2015",90000, "18431210-7", "",null, null);
 		bookings.add(booking1);
 		bookings.add(booking2);
