@@ -20,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
+import cl.ubb.agil.model.Branch;
 import cl.ubb.agil.service.BookingService;
+import cl.ubb.agil.service.exception.CreateException;
+import cl.ubb.agil.service.exception.EmptyListException;
+
 @RestController
 @RequestMapping("/booking")
 public class BookingController {		
@@ -43,14 +48,36 @@ public class BookingController {
 				){
 		
 			 	 
-			ResponseEntity<Integer> result = null;
+			ResponseEntity<Integer> result;
 			try {
 				int aux = bookingService.booking(customerRut, originPlace, startDate, startHour, destinyPlace, endDate, endHour, carTypeID, extras);
 				result = new ResponseEntity<Integer>(aux, HttpStatus.OK);
-			} catch (ParseException e) {
-				System.out.println("Las fechas no están en el formato dd/mm/aaaa");
+			} catch (ParseException | CreateException e) {
+				result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			
 			return result;
+		}
+		
+		@RequestMapping(value = "/bookingsList/{customerRut}", method = GET)
+		@ResponseBody
+		public ResponseEntity<List<Booking>> getListOfBookingsByCustomer(
+				@PathVariable("customerRut") String customerRut,
+				@RequestParam(value = "startDate", required = true) String startDate,
+				@RequestParam(value = "endDate", required = true) String endDate
+				){
+			
+			ResponseEntity<List<Booking>> response;
+			
+			try{
+				List<Booking> list = bookingService.getBookingsByRangeDateAndCustomer(customerRut, startDate, endDate);
+				response = new ResponseEntity<List<Booking>>(list, HttpStatus.OK);
+			}catch(EmptyListException ex){
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} catch (ParseException e) {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			return response;
 		}
 }

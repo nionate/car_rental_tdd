@@ -15,6 +15,8 @@ import cl.ubb.agil.dao.CarTypeDao;
 import cl.ubb.agil.dao.CustomerCategoryDao;
 import cl.ubb.agil.dao.CustomerDao;
 import cl.ubb.agil.dao.ExtraDao;
+import cl.ubb.agil.dao.SanctionDao;
+import cl.ubb.agil.dao.TimeConstraintDao;
 import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.Branch;
@@ -23,6 +25,7 @@ import cl.ubb.agil.model.CarSpecification;
 import cl.ubb.agil.model.Customer;
 import cl.ubb.agil.model.CustomerCategory;
 import cl.ubb.agil.model.Extra;
+import cl.ubb.agil.service.exception.CreateException;
 import cl.ubb.agil.service.exception.EmptyListException;
 
 public class BookingService {
@@ -35,12 +38,14 @@ public class BookingService {
 	private CarSpecificationDao carSpecDao;
 	private BranchDao branchDao;
 	private ExtraDao extraDao;
+	private SanctionDao sDao;
 	
 	private CarTypeService carTypeService;
+	private SanctionService sanctionService;
 	
 	public BookingService(BookingDao bookingDao, CarTypeDao carTypeDao, CustomerDao customerDao,
 			CustomerCategoryDao cCategoryDao, CarDao carDao, CarSpecificationDao carSpecDao, BranchDao branchDao,
-			ExtraDao extraDao, CarTypeService carTypeService) {
+			ExtraDao extraDao,SanctionDao sDao, CarTypeService carTypeService, SanctionService sanctionService) {
 		super();
 		this.bookingDao = bookingDao;
 		this.carTypeDao = carTypeDao;
@@ -50,7 +55,9 @@ public class BookingService {
 		this.carSpecDao = carSpecDao;
 		this.branchDao = branchDao;
 		this.extraDao = extraDao;
+		this.sDao = sDao;
 		this.carTypeService = carTypeService;
+		this.sanctionService = sanctionService;
 	}
 
 	public BookingService(CarTypeService carTypeService) {
@@ -63,16 +70,16 @@ public class BookingService {
 	}
 
 	public int booking(String customerRut, String origin, String startDay, String startHour, String destiny, String endDay,
-			String endHour, int carTypeId, List<BookingExtra> extras) throws ParseException {
-		
-		System.out.println("BookingService - booking...");
-		
+			String endHour, int carTypeId, List<BookingExtra> extras) throws ParseException, CreateException {
 		
 		carTypeService = new CarTypeService(carTypeDao, extraDao);
+		sanctionService = new SanctionService(sDao);
+		
+		if(sanctionService.searchUserWithSanction(customerRut, startDay))
+			throw new CreateException();
 		
 		Customer customer = customerDao.getCustomer(customerRut);
 		CustomerCategory cCategory = cCategoryDao.getCustomerCategoryById(customer.getIdCustomerCategory());
-		
 		List<Branch> branches = new ArrayList<>();
 		branches.add(branchDao.get(origin));
 		branches.add(branchDao.get(destiny));		

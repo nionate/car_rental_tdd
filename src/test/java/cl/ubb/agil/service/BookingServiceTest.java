@@ -23,6 +23,8 @@ import cl.ubb.agil.dao.CarTypeDao;
 import cl.ubb.agil.dao.CustomerCategoryDao;
 import cl.ubb.agil.dao.CustomerDao;
 import cl.ubb.agil.dao.ExtraDao;
+import cl.ubb.agil.dao.SanctionDao;
+import cl.ubb.agil.dao.TimeConstraintDao;
 import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.Branch;
@@ -32,6 +34,9 @@ import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.model.Customer;
 import cl.ubb.agil.model.CustomerCategory;
 import cl.ubb.agil.model.Extra;
+import cl.ubb.agil.model.Sanction;
+import cl.ubb.agil.model.TimeConstraint;
+import cl.ubb.agil.service.exception.CreateException;
 import cl.ubb.agil.service.exception.EmptyListException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -53,6 +58,8 @@ public class BookingServiceTest{
 	private BranchDao branchDao;
 	@Mock
 	private ExtraDao extraDao;
+	@Mock
+	private SanctionDao sanctionDao;
 
 	@InjectMocks
 	private BookingService bookingService;
@@ -64,7 +71,7 @@ public class BookingServiceTest{
 	 * $40.000.
 	 */
 	@Test
-	public void shouldReturn40000WhenAClienteBookingACarForFourDays() throws ParseException{
+	public void shouldReturn40000WhenAClienteBookingACarForFourDays() throws ParseException, CreateException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
@@ -112,7 +119,7 @@ public class BookingServiceTest{
 	 * $5.000 extra).
 	 */
 	@Test
-	public void shoulReturn60000WhenAClientBookingACarForFourDaysWithExtras() throws ParseException{
+	public void shoulReturn60000WhenAClientBookingACarForFourDaysWithExtras() throws ParseException, CreateException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
@@ -156,14 +163,14 @@ public class BookingServiceTest{
 	}
 
 	/*
-	 * El cliente 18431210-7, categoría Persona, reserva el auto con id "3" de
-	 * la sucursal de Santiago, el día 02/06/2016 a las 16:20 hrs y lo entrega
-	 * en la sucursal de Santiago el día 04/06/2016 a las 16:20 hrs, más dos
-	 * extras: una "silla para bebé" con id "1" y un GPS con id "2". Retorna
-	 * $72.000 ($10.000 auto + $5.000 silla para bebé + $3.000 GPS).
+	 * El cliente 18431210-7, categorï¿½a Persona, reserva el auto con id "3" de
+	 * la sucursal de Santiago, el dï¿½a 02/06/2016 a las 16:20 hrs y lo entrega
+	 * en la sucursal de Santiago el dï¿½a 04/06/2016 a las 16:20 hrs, mï¿½s dos
+	 * extras: una "silla para bebï¿½" con id "1" y un GPS con id "2". Retorna
+	 * $72.000 ($10.000 auto + $5.000 silla para bebï¿½ + $3.000 GPS).
 	 */
 	@Test
-	public void shouldReturn72000WhenAClientBookingACarForTwoDaysWithTwoExtras() throws ParseException{
+	public void shouldReturn72000WhenAClientBookingACarForTwoDaysWithTwoExtras() throws ParseException, CreateException{
 
 		String rutCliente = "18770816-8";
 		String startDay = "11/06/2016";
@@ -208,6 +215,23 @@ public class BookingServiceTest{
 
 		assertEquals(72000, resultado);
 	}
+	
+	@Test(expected = CreateException.class)
+	public void shouldReturnAnExceptionWhenCustomerHaveAnActiveSanction() throws ParseException, CreateException{
+		String rutCliente = "18770816-8";
+		String startDay = "11/06/2016";
+		String endDay = "15/06/2016";
+
+		List<Sanction> sanctions = new ArrayList<>();
+		sanctions.add(new Sanction("1", "", "10/06/2016", 5, rutCliente));
+		when(sanctionDao.getAllByCostumer("18770816-8")).thenReturn(sanctions);
+
+		int resultado = bookingService.booking(rutCliente,"", startDay, "",
+				"", endDay, "", 1, null);
+
+	}
+	
+	
 	/*El cliente 18431210-7, tiene dos reservas, una con fecha 11/10/2015 y otra con fecha 15/11/2015. La fecha de inicio para listar reservas es : 10/10/2015.
 	 *Retorna una lista con dos reservas.*/
 	@Test

@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.any;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.equalTo;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
@@ -25,11 +27,14 @@ import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
+import cl.ubb.agil.model.Booking;
 import cl.ubb.agil.model.BookingExtra;
 import cl.ubb.agil.model.Branch;
 import cl.ubb.agil.model.CarType;
 import cl.ubb.agil.service.BookingService;
 import cl.ubb.agil.service.CarTypeService;
+import cl.ubb.agil.service.exception.CreateException;
+import cl.ubb.agil.service.exception.EmptyListException;
 
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -48,44 +53,11 @@ public class BookingControllerTest {
 		RestAssuredMockMvc.standaloneSetup(bookingController);
 	}
 	
-	private String[] fillExtraStrings(List<BookingExtra> extras){
-		String[] results = {"",""};
-		
-		if(extras.size() == 1){
-			results[0] += extras.get(extras.size()-1).getExtraId();
-			results[1] += extras.get(extras.size()-1).getNumber();
-		}else{
-		
-			for(int i = 0 ; i < extras.size(); i++){
-				results[0] += extras.get(i).getExtraId() + ",";
-				results[1] += extras.get(i).getNumber() + ",";
-			}
-			if(extras.size()-1>0){
-				results[0] += extras.get(extras.size()-1).getExtraId();
-				results[1] += extras.get(extras.size()-1).getNumber();
-			}
-		}
-		
-		return results;
-	}
-	
-	@SuppressWarnings("unchecked")
 	@Test
-	public void shouldReturnAValueToPayWhenAClientBookACarWithOutExtras() throws ParseException{
+	public void shouldReturnAValueToPayWhenAClientBookACarWithOutExtras() throws ParseException, CreateException{
 		
-		/*String rutCliente = "18770816-8";
-		String startDay = "11/06/2016";
-		String endDay = "15/06/2016";
-		String bookingHour = "15:00";
-		Branch santiago = new Branch("1", "Santiago", "");
-		CarType type = new CarType(1, "", "automatic", "diesel", "", 4, 5, 10000);*/
-		List<BookingExtra> extras = new ArrayList<>();
-		//extras.add(new BookingExtra(1, 1));
-		/*String[] extraStrings = fillExtraStrings(extras);
+		List<BookingExtra> extras = new ArrayList<>();			
 		
-		String extrasIds = extraStrings[0];
-		String extrasQuantity = extraStrings[1];*/
-				
 		when(bookingService.booking(
 				Mockito.eq("18770816-8"), 
 				Mockito.eq("1"), 
@@ -107,5 +79,37 @@ public class BookingControllerTest {
 			assertThat().
 			body(equalTo("40000")).
 			statusCode(SC_OK);
+	}
+	
+	@Test
+	public void shouldReturnAListWithTwoBookings() throws EmptyListException, ParseException{
+		
+		List<Booking> bookings = new ArrayList<>();
+		bookings.add(new Booking("10/06/2016", "10/07/2016", 40000, "18431210-7", "RRHH38", null, null));
+		bookings.add(new Booking("10/05/2016", "09/06/2016", 50000, "18431210-7", "BBJJ12", null, null));
+		when(bookingService.getBookingsByRangeDateAndCustomer("18431210-7", "09/05/2016", "11/07/2016")).thenReturn(bookings);
+		
+		given().
+			contentType(ContentType.JSON).
+		when().
+			get("/booking/bookingsList/18431210-7/?startDate=09/05/2016&endDate=11/07/2016").
+		then().
+			assertThat().
+			body("licensePlate[0]", equalTo(bookings.get(0).getLicensePlate())).
+			body("licensePlate[1]", equalTo(bookings.get(1).getLicensePlate())).
+			statusCode(SC_OK);
+	}
+	
+	@Test
+	public void shouldReturnAnEmptyListExceptionWhenTheCustomerNotHaveBookings() throws EmptyListException, ParseException{
+		
+		doThrow(new EmptyListException()).when(bookingService).getBookingsByRangeDateAndCustomer("18431210-7", "11/07/2016", "31/12/2016");
+		
+		given().
+		when().
+			get("/booking/bookingsList/18431210-7/?startDate=11/07/2016&endDate=31/12/2016").
+		then().
+			assertThat().
+				statusCode(SC_NOT_FOUND);
 	}
 }

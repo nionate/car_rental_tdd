@@ -8,6 +8,10 @@ import cl.ubb.agil.model.Sanction;
 public class SanctionService {
 	
 	private SanctionDao sDao;
+	
+	public SanctionService(SanctionDao sDao){
+		this.sDao = sDao;
+	}
 
 	public boolean searchUserWithSanction(String rut, String date) {
 		
